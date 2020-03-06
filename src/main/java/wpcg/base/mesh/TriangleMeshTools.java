@@ -1,4 +1,17 @@
-
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * <p>
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * <p>
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
 package wpcg.base.mesh;
 
 import com.jme3.math.Vector2f;
@@ -8,7 +21,7 @@ import wpcg.base.Logger;
 import java.util.List;
 
 /**
- * Tools for triangle meshes
+ * Tools for triangle meshes.
  */
 public class TriangleMeshTools {
     /**
@@ -26,7 +39,7 @@ public class TriangleMeshTools {
             baseMesh.addTextureCoordinate(new Vector2f(otherMesh.getTextureCoordinate(i)));
         }
         for (int i = 0; i < otherMesh.getNumberOfTriangles(); i++) {
-            Triangle t = otherMesh.getTriangle(i).clone();
+            Triangle t = new Triangle(otherMesh.getTriangle(i));
             t.addVertexIndexOffset(vertexOffset);
             t.addTexCoordOffset(texCoordOffset);
             baseMesh.addTriangle(t);
@@ -59,7 +72,7 @@ public class TriangleMeshTools {
                 mesh.addTextureCoordinate(new Vector2f(m.getTextureCoordinate(i)));
             }
             for (int i = 0; i < m.getNumberOfTriangles(); i++) {
-                Triangle t = m.getTriangle(i).clone();
+                Triangle t = new Triangle(m.getTriangle(i));
                 t.addVertexIndexOffset(vertexOffset);
                 t.addTexCoordOffset(texCoordOffset);
                 mesh.addTriangle(t);
@@ -72,6 +85,10 @@ public class TriangleMeshTools {
         return mesh;
     }
 
+
+    /**
+     * Move all vertices with the offset vector (x, y, z)
+     */
     public static void translate(TriangleMesh mesh, float x, float y, float z) {
         for (int i = 0; i < mesh.getNumberOfVertices(); i++) {
             Vertex v = mesh.getVertex(i);
@@ -79,6 +96,9 @@ public class TriangleMeshTools {
         }
     }
 
+    /**
+     * Move all vertices with the offset vector t
+     */
     public static void translate(TriangleMesh mesh, Vector3f t) {
         translate(mesh, t.x, t.y, t.z);
     }
@@ -109,9 +129,9 @@ public class TriangleMeshTools {
                 i--;
             } else {
                 Triangle t = mesh.getTriangle(i);
-                Vector3f a = mesh.getVertex(t.get(0)).position;
-                Vector3f b = mesh.getVertex(t.get(1)).position;
-                Vector3f c = mesh.getVertex(t.get(2)).position;
+                Vector3f a = mesh.getVertex(t.getVertexIndex(0)).position;
+                Vector3f b = mesh.getVertex(t.getVertexIndex(1)).position;
+                Vector3f c = mesh.getVertex(t.getVertexIndex(2)).position;
                 if (Triangle.getArea(a, b, c) < 1e-5) {
                     mesh.removeTriangle(i);
                     i--;

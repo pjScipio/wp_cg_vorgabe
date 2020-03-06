@@ -1,22 +1,13 @@
 /**
- * Diese Datei gehört zum Android/Java Framework zur Veranstaltung "Computergrafik für
- * Augmented Reality" von Prof. Dr. Philipp Jenke an der Hochschule für Angewandte
- * Wissenschaften (HAW) Hamburg. Weder Teile der Software noch das Framework als Ganzes dürfen
- * ohne die Einwilligung von Philipp Jenke außerhalb von Forschungs- und Lehrprojekten an der HAW
- * Hamburg verwendet werden.
- * <p>
- * This file is part of the Android/Java framework for the course "Computer graphics for augmented
- * reality" by Prof. Dr. Philipp Jenke at the University of Applied (UAS) Sciences Hamburg. Neither
- * parts of the framework nor the complete framework may be used outside of research or student
- * projects at the UAS Hamburg.
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
+
 package wpcg.a3_subdivision.halfedge;
 
 /**
  * A half edge has references to the next edge within the current facet, the
  * opposite edge, its start vertex and the facet it belongs to.
- *
- * @author Philipp Jenke
  */
 public class HalfEdge {
 
@@ -54,6 +45,32 @@ public class HalfEdge {
         this.facet = null;
     }
 
+    @Override
+    public String toString() {
+        return "Half Edge";
+    }
+
+    /**
+     * Return the end vertex of a half edge (not directly saved.
+     *
+     * @return End index of the half edge, null on error.
+     */
+    public HalfEdgeVertex getEndVertex() {
+        if (getNext() == null) {
+            throw new IllegalArgumentException();
+        }
+        return getNext().getStartVertex();
+    }
+
+    /**
+     * Returns true if the edge is at the boundary (has no opposite half edge).
+     */
+    public boolean isBoundary() {
+        return opposite == null;
+    }
+
+    // +++ GETTER/SETTER +++++++++++++++++++++++++++++++++++++
+
     public HalfEdge getNext() {
         return next;
     }
@@ -84,26 +101,5 @@ public class HalfEdge {
 
     public void setFacet(HalfEdgeTriangle facet) {
         this.facet = facet;
-    }
-
-    @Override
-    public String toString() {
-        return "Half Edge";
-    }
-
-    /**
-     * Return the end vertex of a half edge (not directly saved.
-     *
-     * @return End index of the half edge, null on error.
-     */
-    public HalfEdgeVertex getEndVertex() {
-        if (getNext() == null) {
-            throw new IllegalArgumentException();
-        }
-        return getNext().getStartVertex();
-    }
-
-    public boolean isBoundary() {
-        return opposite == null;
     }
 }

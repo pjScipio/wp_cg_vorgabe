@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.base.animatedmesh;
 
 import com.jme3.animation.AnimChannel;
@@ -9,7 +14,7 @@ import com.jme3.scene.Node;
 /**
  * Container for an animated mesh in the jMonkey scene graph.
  */
-public class AnimatedMesh extends Node implements AnimEventListener {
+public class AnimatedMesh extends Node {
 
     /**
      * Scene graph node.
@@ -21,36 +26,35 @@ public class AnimatedMesh extends Node implements AnimEventListener {
      */
     private AnimChannel channel;
 
+    /**
+     * This controller is used to define the movement of the mesh over time.
+     */
     private AnimationController animationController;
 
     public AnimatedMesh(Node node, AnimationController animationController) {
         this.node = node;
         this.animationController = animationController;
-        node.setLocalScale(0.003f);
-
         AnimControl control = node.getControl(AnimControl.class);
-        control.addListener(this);
         channel = control.createChannel();
         channel.setAnim("walk");
     }
 
-    public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
-    }
-
-    public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
-    }
-
-    public Node getNode() {
-        return node;
-    }
-
+    /**
+     * Call this method to advance in the animation based on the current controller.
+     */
     public void update(float time) {
         animationController.move(time);
         getNode().setLocalTranslation(animationController.getPose().pos);
         getNode().setLocalRotation(animationController.getPose().rot);
     }
 
+    // +++ GETTER/SETTER ++++++++++++++++
+
     public Vector3f getDirection() {
         return animationController.getDirection();
+    }
+
+    public Node getNode() {
+        return node;
     }
 }

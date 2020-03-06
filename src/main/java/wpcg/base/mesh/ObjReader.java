@@ -1,23 +1,19 @@
 /**
- * Prof. Philipp Jenke
- * Hochschule für Angewandte Wissenschaften (HAW), Hamburg
- * <p>
- * Basis Framework für das "WP Computergrafik".
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
+
 package wpcg.base.mesh;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import wpcg.base.Logger;
-
 import java.io.*;
 import java.util.*;
 
 /**
  * Read OBJ file and fill triangle mesh with the content.
- *
- * @author Philipp Jenke
  */
 public class ObjReader {
 
@@ -87,9 +83,9 @@ public class ObjReader {
             // Remove degenerated triangles
             for (int i = 0; i < mesh.getNumberOfTriangles(); i++) {
                 Triangle t = mesh.getTriangle(i);
-                Vector3f a = mesh.getVertex(t.get(0)).position;
-                Vector3f b = mesh.getVertex(t.get(1)).position;
-                Vector3f c = mesh.getVertex(t.get(2)).position;
+                Vector3f a = mesh.getVertex(t.getVertexIndex(0)).position;
+                Vector3f b = mesh.getVertex(t.getVertexIndex(1)).position;
+                Vector3f c = mesh.getVertex(t.getVertexIndex(2)).position;
                 if (t.isDegenerated() || Triangle.getArea(a, b, c) < 1e-5) {
                     mesh.removeTriangle(i);
                     i--;

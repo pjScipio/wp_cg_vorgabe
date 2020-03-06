@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.base.mesh;
 
 import com.jme3.math.ColorRGBA;
@@ -7,35 +12,37 @@ import wpcg.base.Logger;
 /**
  * Representation of a triangle consisting of three indices. The indices
  * reference vertices in the vertex list in a triangle mesh.
- *
- * @author Philipp Jenke
  */
 public class Triangle {
 
     /**
      * Indices of the vertices.
      */
-    private int[] vertexIndices = {-1, -1, -1};
+    private int[] vertexIndices;
 
     /**
      * Triangle color in RGBA format.
      */
-    protected ColorRGBA color = new ColorRGBA(0.5f, 0.5f, 0.5f, 1);
+    protected ColorRGBA color;
 
     /**
      * Facet normal
      */
-    protected Vector3f normal = new Vector3f(0, 1, 0);
+    protected Vector3f normal;
 
     /**
      * Indices of the texture coordinates.
      */
-    protected int[] texCoordIndices = {-1, -1, -1};
+    protected int[] texCoordIndices;
 
     public Triangle() {
+        this(-1, -1, -1, -1, -1, -1,
+                new Vector3f(0, 1, 0), new ColorRGBA(0.5f, 0.5f, 0.5f, 1));
     }
 
     public Triangle(int a, int b, int c, int tA, int tB, int tC, Vector3f normal, ColorRGBA color) {
+        vertexIndices = new int[3];
+        texCoordIndices = new int[3];
         vertexIndices[0] = a;
         vertexIndices[1] = b;
         vertexIndices[2] = c;
@@ -79,34 +86,8 @@ public class Triangle {
         return b.subtract(a).cross(c.subtract(a)).length();
     }
 
-    public ColorRGBA getColor() {
-        return color;
-    }
-
     /**
-     * Color must be a 4D vector in RGBA format.
-     */
-    public void setColor(ColorRGBA color) {
-        this.color = color;
-    }
-
-    public void setNormal(Vector3f normal) {
-        this.normal = new Vector3f(normal);
-    }
-
-    public Vector3f getNormal() {
-        return normal;
-    }
-
-    /**
-     * i must be in 0, 1, 2
-     */
-    public int getTexCoordIndex(int i) {
-        return texCoordIndices[i];
-    }
-
-    /**
-     * Add an offset to all texture coordinates.
+     * Add an offset to all texture coordinates (required when merging meshes).
      */
     public void addTexCoordOffset(int offset) {
         for (int i = 0; i < 3; i++) {
@@ -115,78 +96,12 @@ public class Triangle {
     }
 
     /**
-     * Set the three texture coordinates at the three triangle corners.
-     */
-    public void setTextureCoordinates(int texCoordIndex1, int texCoordIndex2, int texCoordIndex3) {
-        this.texCoordIndices[0] = texCoordIndex1;
-        this.texCoordIndices[1] = texCoordIndex2;
-        this.texCoordIndices[2] = texCoordIndex3;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Triangle");
-    }
-
-    public int getVertexIndex(int index) {
-        return vertexIndices[index];
-    }
-
-    /**
-     * Add an offset to all vertex indices.
+     * Add an offset to all vertex indices (required when merging meshes).
      */
     public void addVertexIndexOffset(int offset) {
         for (int i = 0; i < 3; i++) {
             vertexIndices[i] += offset;
         }
-    }
-
-    @Override
-    public Triangle clone() {
-        Triangle triangle = new Triangle();
-        triangle.setVertexIndices(vertexIndices[0], vertexIndices[1], vertexIndices[2]);
-        triangle.setTextureCoordinates(texCoordIndices[0], texCoordIndices[1], texCoordIndices[2]);
-        triangle.setColor(color);
-        triangle.setNormal(normal);
-        return triangle;
-    }
-
-    public void setVertexIndices(int vertexIndex1, int vertexIndex2, int vertexIndex3) {
-        this.vertexIndices[0] = vertexIndex1;
-        this.vertexIndices[1] = vertexIndex2;
-        this.vertexIndices[2] = vertexIndex3;
-
-    }
-
-    public int getTextureCoordinate(int vertexInTriangleIndex) {
-        return texCoordIndices[vertexInTriangleIndex];
-    }
-
-    public int get(int vertexInTriangleIndex) {
-        return vertexIndices[vertexInTriangleIndex];
-    }
-
-    public int getOther(int a, int b) {
-        if (!contains(a) || !contains(b)) {
-            throw new IllegalArgumentException("Invalid indices.");
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (vertexIndices[i] != a && vertexIndices[i] != b) {
-                return vertexIndices[i];
-            }
-        }
-
-        throw new IllegalArgumentException("Invalid indices.");
-    }
-
-    public boolean contains(int index) {
-        for (int i = 0; i < 3; i++) {
-            if (vertexIndices[i] == index) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -207,6 +122,49 @@ public class Triangle {
                 vertexIndices[i] = iKeep;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Triangle");
+    }
+
+    // +++ GETTER/SETTER +++++++++++++++++++++++++
+
+    public ColorRGBA getColor() {
+        return color;
+    }
+
+    /**
+     * Color must be a 4D vector in RGBA format.
+     */
+    public void setColor(ColorRGBA color) {
+        this.color = color;
+    }
+
+    public void setNormal(Vector3f normal) {
+        this.normal = new Vector3f(normal);
+    }
+
+    public Vector3f getNormal() {
+        return normal;
+    }
+
+    /**
+     * Set the three texture coordinates at the three triangle corners.
+     */
+    public void setTextureCoordinates(int texCoordIndex1, int texCoordIndex2, int texCoordIndex3) {
+        this.texCoordIndices[0] = texCoordIndex1;
+        this.texCoordIndices[1] = texCoordIndex2;
+        this.texCoordIndices[2] = texCoordIndex3;
+    }
+
+    public int getVertexIndex(int index) {
+        return vertexIndices[index];
+    }
+
+    public int getTextureCoordinate(int vertexInTriangleIndex) {
+        return texCoordIndices[vertexInTriangleIndex];
     }
 
     public int getA() {

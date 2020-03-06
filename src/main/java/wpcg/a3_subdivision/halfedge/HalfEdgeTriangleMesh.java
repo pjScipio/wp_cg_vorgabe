@@ -1,15 +1,8 @@
 /**
- * Diese Datei gehört zum Android/Java Framework zur Veranstaltung "Computergrafik für
- * Augmented Reality" von Prof. Dr. Philipp Jenke an der Hochschule für Angewandte
- * Wissenschaften (HAW) Hamburg. Weder Teile der Software noch das Framework als Ganzes dürfen
- * ohne die Einwilligung von Philipp Jenke außerhalb von Forschungs- und Lehrprojekten an der HAW
- * Hamburg verwendet werden.
- * <p>
- * This file is part of the Android/Java framework for the course "Computer graphics for augmented
- * reality" by Prof. Dr. Philipp Jenke at the University of Applied (UAS) Sciences Hamburg. Neither
- * parts of the framework nor the complete framework may be used outside of research or student
- * projects at the UAS Hamburg.
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
+
 package wpcg.a3_subdivision.halfedge;
 
 import com.jme3.bounding.BoundingBox;
@@ -27,15 +20,23 @@ import java.util.Map;
 /**
  * A triangle mesh a a list of triangles, a list of half edges and a list of
  * vertices
- *
- * @author Philipp Jenke
  */
 public class HalfEdgeTriangleMesh {
 
+    /**
+     * List of triangles in the mesh.
+     */
     private List<HalfEdgeTriangle> triangles;
 
+    /**
+     * List of vertices in the mesh.
+     */
     private List<HalfEdgeVertex> vertices;
 
+
+    /**
+     * List of half edges in the mesh.
+     */
     private List<HalfEdge> halfEdges;
 
     /**
@@ -50,7 +51,7 @@ public class HalfEdgeTriangleMesh {
      */
     private Map<HalfEdgeVertex, HalfEdge> cacheSplitVertex2HeMap;
 
-    // --- CONSTRUCTION/TRANSFORMATION ACCESS -------------------
+    // +++ CONSTRUCTION/TRANSFORMATION ACCESS ++++++++++++++++++
 
     public HalfEdgeTriangleMesh() {
         triangles = new ArrayList<HalfEdgeTriangle>();
@@ -60,6 +61,9 @@ public class HalfEdgeTriangleMesh {
         cacheSplitVertex2HeMap = null;
     }
 
+    /**
+     * Creates a half edge mesh from a regular mesh.
+     */
     public static HalfEdgeTriangleMesh from(TriangleMesh mesh) {
         HalfEdgeTriangleMesh heMesh = new HalfEdgeTriangleMesh();
         for (int i = 0; i < mesh.getNumberOfVertices(); i++) {
@@ -104,8 +108,11 @@ public class HalfEdgeTriangleMesh {
         return mesh;
     }
 
-    // --- WRITING ACCESS -------------------
+    // +++ WRITING ACCESS ++++++++++++++++++
 
+    /**
+     * Add a triangle connecting the three vertices. Internally generates the required half edges, and the facet.
+     */
     public int addTriangle(int vertexIndex1, int vertexIndex2,
                            int vertexIndex3) {
         HalfEdge halfEdge1 = new HalfEdge();
@@ -129,6 +136,9 @@ public class HalfEdgeTriangleMesh {
         return triangles.size() - 1;
     }
 
+    /**
+     * Reset the mesh to empty.
+     */
     public void clear() {
         vertices.clear();
         triangles.clear();
@@ -152,7 +162,7 @@ public class HalfEdgeTriangleMesh {
         triangles.add(t);
     }
 
-    // --- READING ACCESS -------------------
+    // +++ READING ACCESS ++++++++++++++++++
 
     public HalfEdgeVertex getVertex(int index) {
         return vertices.get(index);
@@ -174,6 +184,9 @@ public class HalfEdgeTriangleMesh {
         return halfEdges.size();
     }
 
+    /**
+     * Get the index'th vertex in the triangle. Valid values for index are 0, 1, 2.
+     */
     public HalfEdgeVertex getVertex(HalfEdgeTriangle triangle, int index) {
         HalfEdgeTriangle het = triangle;
         HalfEdge he = het.getHalfEdge();
@@ -187,6 +200,9 @@ public class HalfEdgeTriangleMesh {
         return halfEdges.get(halfEdgeIndex);
     }
 
+    /**
+     * Returns true if the mesh has a boundary.
+     */
     public boolean hasBoudary() {
         for (HalfEdge he : halfEdges) {
             if (he.getOpposite() == null) {
@@ -196,7 +212,7 @@ public class HalfEdgeTriangleMesh {
         return false;
     }
 
-    // --- OPERATIONS -------------------
+    // +++ OPERATIONS ++++++++++++++++++
 
     /**
      * Finally, opposite half edges must be connected and each vertex must be
@@ -230,6 +246,9 @@ public class HalfEdgeTriangleMesh {
         Logger.getInstance().debug("Successfully connected half edges.");
     }
 
+    /**
+     * Computes the normals for all triangles/facets in the mesh.
+     */
     public void computeTriangleNormals() {
         for (int triangleIndex =
              0; triangleIndex < getNumberOfTriangles(); triangleIndex++) {
@@ -247,6 +266,9 @@ public class HalfEdgeTriangleMesh {
         Logger.getInstance().debug("Successfully computed face normals.");
     }
 
+    /**
+     * Returns the AABB bounding box of the mesh vertices.
+     */
     public BoundingBox getBoundingBox() {
         Vector3f ll = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
         Vector3f ur = new Vector3f(Float.MIN_VALUE, Float.MIN_VALUE, Float.MIN_VALUE);
@@ -346,10 +368,16 @@ public class HalfEdgeTriangleMesh {
         return v;
     }
 
+    /**
+     * Removes the triangles (not its vertices/half edges) from the mesh.
+     */
     public void removeTriangle(int index) {
         triangles.remove(index);
     }
 
+    /**
+     * Removes the half edge (not its vertices/triangles) from the mesh.
+     */
     public void removeHalfEdge(int index) {
         halfEdges.remove(index);
     }

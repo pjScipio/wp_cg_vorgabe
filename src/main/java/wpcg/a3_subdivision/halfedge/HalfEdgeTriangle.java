@@ -1,27 +1,17 @@
 /**
- * Diese Datei gehört zum Android/Java Framework zur Veranstaltung "Computergrafik für
- * Augmented Reality" von Prof. Dr. Philipp Jenke an der Hochschule für Angewandte
- * Wissenschaften (HAW) Hamburg. Weder Teile der Software noch das Framework als Ganzes dürfen
- * ohne die Einwilligung von Philipp Jenke außerhalb von Forschungs- und Lehrprojekten an der HAW
- * Hamburg verwendet werden.
- * <p>
- * This file is part of the Android/Java framework for the course "Computer graphics for augmented
- * reality" by Prof. Dr. Philipp Jenke at the University of Applied (UAS) Sciences Hamburg. Neither
- * parts of the framework nor the complete framework may be used outside of research or student
- * projects at the UAS Hamburg.
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
-package wpcg.a3_subdivision.halfedge;
 
+package wpcg.a3_subdivision.halfedge;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 
 /**
- * A facet has a reference to one of its half edges. This datastructure
+ * A facet (here triangle) has a reference to one of its half edges. This datastructure
  * represents a general mesh (triangle, quad, ...). However, we only use
  * triangle meshes here.
- *
- * @author Philipp Jenke
  */
 public class HalfEdgeTriangle {
 
@@ -30,8 +20,14 @@ public class HalfEdgeTriangle {
      */
     private HalfEdge halfEdge;
 
+    /**
+     * Normal of the facet.
+     */
     private Vector3f normal;
 
+    /**
+     * Color of the facet.
+     */
     private ColorRGBA color;
 
     public HalfEdgeTriangle() {
@@ -43,14 +39,6 @@ public class HalfEdgeTriangle {
     public HalfEdgeTriangle(HalfEdgeTriangle triangle) {
         HalfEdgeTriangle t = new HalfEdgeTriangle();
         t.halfEdge = halfEdge;
-    }
-
-    public HalfEdge getHalfEdge() {
-        return halfEdge;
-    }
-
-    public void setHalfEdge(HalfEdge halfEdge) {
-        this.halfEdge = halfEdge;
     }
 
     @Override
@@ -82,6 +70,8 @@ public class HalfEdgeTriangle {
         return (v0.add(v1).add(v2)).mult(1.0f / 3.0f);
     }
 
+    // +++ GETTER/SETTER +++++++++++++++++++++++++++
+
     public void setNormal(Vector3f normal) {
         this.normal = normal;
     }
@@ -92,5 +82,13 @@ public class HalfEdgeTriangle {
 
     public ColorRGBA getColor() {
         return color;
+    }
+
+    public HalfEdge getHalfEdge() {
+        return halfEdge;
+    }
+
+    public void setHalfEdge(HalfEdge halfEdge) {
+        this.halfEdge = halfEdge;
     }
 }

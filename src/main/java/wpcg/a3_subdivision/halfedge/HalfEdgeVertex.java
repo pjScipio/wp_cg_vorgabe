@@ -1,9 +1,8 @@
 /**
- * Prof. Philipp Jenke
- * Hochschule für Angewandte Wissenschaften (HAW), Hamburg
- * <p>
- * Base framework for "WP Computergrafik".
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
+
 package wpcg.a3_subdivision.halfedge;
 
 import com.jme3.math.Vector3f;
@@ -34,6 +33,12 @@ public class HalfEdgeVertex  {
         this.pos = position;
     }
 
+    @Override
+    public String toString() {
+        return "HalfEdgeVertex";
+    }
+
+    // +++ GETTER/SETTER ++++++++++++
 
     public HalfEdge getHalfEdge() {
         return halfEgde;
@@ -41,11 +46,6 @@ public class HalfEdgeVertex  {
 
     public void setHalfEgde(HalfEdge halfEgde) {
         this.halfEgde = halfEgde;
-    }
-
-    @Override
-    public String toString() {
-        return "HalfEdgeVertex";
     }
 
     public Vector3f getPosition() {

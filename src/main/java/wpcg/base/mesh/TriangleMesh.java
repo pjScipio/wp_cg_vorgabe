@@ -1,3 +1,7 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
 
 package wpcg.base.mesh;
 
@@ -20,27 +24,27 @@ public class TriangleMesh {
     /**
      * Vertices.
      */
-    private List<Vertex> vertices = new ArrayList<Vertex>();
+    private List<Vertex> vertices;
 
     /**
      * Triangles.
      */
-    private List<Triangle> triangles = new ArrayList<Triangle>();
+    private List<Triangle> triangles;
 
     /**
      * Texture coordinates.
      */
-    private List<Vector2f> textureCoordinates = new ArrayList<Vector2f>();
+    private List<Vector2f> textureCoordinates;
 
     /**
      * Texture object, leave null if no texture is used.
      */
-    private String textureName = null;
+    private String textureName;
 
     public TriangleMesh() {
-    }
-
-    public TriangleMesh(String textureName) {
+        textureCoordinates = new ArrayList<>();
+        triangles = new ArrayList<>();
+        this.vertices = new ArrayList<>();
         this.textureName = textureName;
     }
 
@@ -48,6 +52,7 @@ public class TriangleMesh {
      * Copy constructor
      */
     public TriangleMesh(TriangleMesh mesh) {
+        this();
         // Vertices
         for (int i = 0; i < mesh.getNumberOfVertices(); i++) {
             addVertex(new Vertex(mesh.getVertex(i)));
@@ -63,55 +68,40 @@ public class TriangleMesh {
         textureName = mesh.textureName;
     }
 
-    public void clear() {
-        vertices.clear();
-        triangles.clear();
-        textureCoordinates.clear();
-    }
-
+    /**
+     * Add triangles connecting the three incides. Returns index of the triangle.
+     */
     public int addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3) {
         triangles.add(new Triangle(vertexIndex1, vertexIndex2, vertexIndex3));
         return triangles.size() - 1;
     }
 
+    /**
+     * Add triangle object, return index of the triangle in the triangle list.
+     */
     public void addTriangle(Triangle t) {
         triangles.add(t);
     }
 
+    /**
+     * Create and add vertex for the given position, return index in vertex list.
+     */
     public int addVertex(Vector3f position) {
         vertices.add(new Vertex(position));
         return vertices.size() - 1;
     }
 
+    /**
+     * Add vertex, return index in vertex list.
+     */
     public int addVertex(Vertex vertex) {
         vertices.add(vertex);
         return vertices.size() - 1;
     }
 
-    public Vertex getVertex(int index) {
-        return vertices.get(index);
-    }
-
-    public int getNumberOfTriangles() {
-        return triangles.size();
-    }
-
-    public int getNumberOfVertices() {
-        return vertices.size();
-    }
-
-    public Vertex getVertex(Triangle triangle, int index) {
-        return vertices.get(triangle.getVertexIndex(index));
-    }
-
-    public Triangle getTriangle(int triangleIndex) {
-        return triangles.get(triangleIndex);
-    }
-
-    public Vector2f getTextureCoordinate(int texCoordIndex) {
-        return textureCoordinates.get(texCoordIndex);
-    }
-
+    /**
+     * Compute the normals for all triangles.
+     */
     public void computeTriangleNormals() {
         for (int triangleIndex = 0; triangleIndex < getNumberOfTriangles(); triangleIndex++) {
             Triangle t = triangles.get(triangleIndex);
@@ -131,77 +121,31 @@ public class TriangleMesh {
         }
     }
 
+    /**
+     * Add the given texture coordinate, return index in tex coord list.
+     */
     public int addTextureCoordinate(Vector2f t) {
         textureCoordinates.add(t);
         return textureCoordinates.size() - 1;
     }
 
-    public String getTextureFilename() {
-        return textureName;
-    }
-
-    public void addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3, int texCoordIndex1,
-                            int texCoordIndex2, int texCoordIndex3) {
-        triangles.add(new Triangle(vertexIndex1, vertexIndex2, vertexIndex3,
-                texCoordIndex1, texCoordIndex2, texCoordIndex3));
-    }
-
-    public int getNumberOfTextureCoordinates() {
-        return textureCoordinates.size();
-    }
-
-    public boolean hasTexture() {
-        return textureName != null;
-    }
-
-    public void setColor(ColorRGBA color) {
-        for (Triangle triangle : triangles) {
-            triangle.setColor(color);
-        }
-        for (Vertex vertex : vertices) {
-            vertex.setColor(color);
-        }
-    }
-
+    /**
+     * Remove all triangles.
+     */
     public void clearTriangles() {
         triangles.clear();
     }
 
-    public void computeVertexNormals() {
-        Map<Integer, Vector3f> normalsMap = new HashMap<>();
-        for (int triIndex = 0; triIndex < triangles.size(); triIndex++) {
-            for (int i = 0; i < 3; i++) {
-                int vIndex = triangles.get(triIndex).getVertexIndex(i);
-                Vector3f tNormal = triangles.get(triIndex).getNormal();
-                if (Math.abs(tNormal.lengthSquared()) < 1e-5) {
-                    Logger.getInstance().error("Invalid triangle normal.");
-                }
-                if (normalsMap.get(vIndex) == null) {
-                    normalsMap.put(vIndex, tNormal);
-                } else {
-                    normalsMap.put(vIndex, normalsMap.get(vIndex).add(tNormal));
-                }
-            }
-        }
-        for (int vIndex = 0; vIndex < vertices.size(); vIndex++) {
-            if (normalsMap.get(vIndex) != null) {
-                vertices.get(vIndex).setNormal(normalsMap.get(vIndex));
-                vertices.get(vIndex).getNormal().normalize();
-            }
-        }
-        Logger.getInstance().debug("Successfully computed the vertex normals.");
-    }
-
-    public void setTextureName(String textureFilename) {
-        this.textureName = textureFilename;
-    }
-
+    /**
+     * Remove the triangle a the given index.
+     */
     public void removeTriangle(int index) {
         triangles.remove(index);
     }
 
-
-
+    /**
+     * Compute and return the AABB bounding box of the vertices.
+     */
     public BoundingBox getBoundingBox() {
         Vector3f ll = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
         Vector3f ur = new Vector3f(Float.MIN_VALUE, Float.MIN_VALUE, Float.MIN_VALUE);
@@ -218,5 +162,44 @@ public class TriangleMesh {
         Vector3f extend = ur.subtract(ll);
         BoundingBox bbox = new BoundingBox(ur.add(ll).mult(0.5f), extend.x, extend.y, extend.z);
         return bbox;
+    }
+
+    // +++ GETTER/SETTER +++++++++++++++++++++++
+
+    public Vertex getVertex(int index) {
+        return vertices.get(index);
+    }
+
+    public int getNumberOfTriangles() {
+        return triangles.size();
+    }
+
+    public int getNumberOfVertices() {
+        return vertices.size();
+    }
+
+    public Triangle getTriangle(int triangleIndex) {
+        return triangles.get(triangleIndex);
+    }
+
+    public Vector2f getTextureCoordinate(int texCoordIndex) {
+        return textureCoordinates.get(texCoordIndex);
+    }
+
+    public int getNumberOfTextureCoordinates() {
+        return textureCoordinates.size();
+    }
+
+    public void setColor(ColorRGBA color) {
+        for (Triangle triangle : triangles) {
+            triangle.setColor(color);
+        }
+        for (Vertex vertex : vertices) {
+            vertex.setColor(color);
+        }
+    }
+
+    public void setTextureName(String textureFilename) {
+        this.textureName = textureFilename;
     }
 }

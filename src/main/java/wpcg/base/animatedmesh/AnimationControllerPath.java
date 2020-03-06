@@ -1,3 +1,18 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * <p>
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * <p>
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
 package wpcg.base.animatedmesh;
 
 import com.jme3.math.Vector3f;
@@ -9,17 +24,14 @@ import java.util.List;
  * An entity has a location and orientation in the scene.
  */
 public class AnimationControllerPath implements AnimationController {
-
-    /**
-     * Up-Vector in of the entity.
-     */
-    private Vector3f up;
-
     /**
      * Path for the entity to move on.
      */
     private Path path;
 
+    /**
+     * Movement spee.
+     */
     private float speed;
 
     public AnimationControllerPath(List<Vector3f> waypoints, float speed) {
@@ -27,6 +39,7 @@ public class AnimationControllerPath implements AnimationController {
         this.speed = speed;
     }
 
+    @Override
     public Pose getPose() {
         return path.getCurrentPose();
     }
@@ -36,6 +49,9 @@ public class AnimationControllerPath implements AnimationController {
         return path.getDirection();
     }
 
+    /**
+     * Update pose.
+     */
     public void move(float time) {
         path.moveOnPath(time * speed);
     }

@@ -1,23 +1,29 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.a4_a5_hexfeld.level;
 
 import com.jme3.math.Vector2f;
 
 /**
- * Richtungen im Spiel (für Steuerung, Wandpositionierung, ...)
+ * Enumeration type for the six directions of the cell edges.
  */
 public enum Direction {
 
     UHR_0, UHR_2, UHR_4, UHR_6, UHR_8, UHR_10;
 
     /**
-     * Liefert die Gegenüber-Richtung der aktuellen Richtung.
-     *
-     * @return
+     * Return the opposite direction of the direction.
      */
     public Direction getGegenueber() {
         return values()[(ordinal() + 3) % 6];
     }
 
+    /**
+     * Compute and return a 2D vector pointing towards the direction (cell edge).
+     */
     public Vector2f getOrientation() {
         float angle = 0;
         switch (this) {

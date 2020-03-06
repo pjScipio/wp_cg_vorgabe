@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.base;
 
 import com.jme3.math.Matrix3f;
@@ -84,11 +89,17 @@ public class Path {
         return length;
     }
 
+    /**
+     * Compute and return the direction along the current path segment.
+     */
     public Vector3f getDirection() {
         int segmentIndex = getSegmentIndex();
         return waypoints.get((segmentIndex + 1) % waypoints.size()).subtract(waypoints.get(segmentIndex));
     }
 
+    /**
+     * Return the index of the current segment in the path.
+     */
     private int getSegmentIndex() {
         float t = this.t;
         for (int i = 0; i < waypoints.size(); i++) {

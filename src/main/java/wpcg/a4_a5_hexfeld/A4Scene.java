@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.a4_a5_hexfeld;
 
 import com.jme3.asset.AssetManager;
@@ -19,18 +24,34 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Base scene for the exercise 4.
+ */
 public class A4Scene extends Scene {
 
+    /**
+     * Level object
+     */
     private Level level;
-    private Node knightNode;
+
+    /**
+     * The animation node of the knight.
+     */
     protected AnimatedMesh animatedMesh;
+
+    /**
+     * Root node of the scene graph.
+     */
     protected Node rootNode;
+
+    /**
+     * Camera controller.
+     */
     protected CameraController cameraController;
 
     public A4Scene() {
         this.level = new Level();
         this.cameraController = null;
-        this.knightNode = null;
         this.animatedMesh = null;
         this.level.readLevelFromFile("src/main/resources/levels/level01.json");
     }
@@ -43,9 +64,7 @@ public class A4Scene extends Scene {
         cameraController.setup(new Vector3f(10, 10, 10),
                 levelCenter, new Vector3f(0, 1, 0));
 
-        // Load animated knight
-        knightNode = loadCharacter(assetManager, rootNode, "Models/knight.gltf");
-
+        // Set path for the knight (list of cell centers)
         List<Vector3f> path = Arrays.asList(
                 to3D(level.getCell(0, 1).getCenter()),
                 to3D(level.getCell(1, 0).getCenter()),
@@ -61,19 +80,22 @@ public class A4Scene extends Scene {
                 to3D(level.getCell(0, 2).getCenter())
         );
 
+        // Setup animated knight mesh.
+        Node knightNode = loadCharacter(assetManager, rootNode, "Models/knight.gltf");
+        knightNode.setLocalScale(0.003f);
         AnimationControllerPath knightAnimationController = new AnimationControllerPath(path, 0.5f);
         animatedMesh = new AnimatedMesh(knightNode, knightAnimationController);
 
         // Render cells
-        for (Iterator<Cell> it = level.getZellenIterator(); it.hasNext(); ) {
+        for (Iterator<Cell> it = level.getCellIterator(); it.hasNext(); ) {
             Cell cell = it.next();
             addCellGeometry(assetManager, "Textures/stone.png",
                     "Textures/stone_normalmap.png", cell);
 
             // Render walls
             for (Direction dir : Direction.values()) {
-                if (cell.istWand(dir)) {
-                    if (cell.getNachbarZelle(dir) != null
+                if (cell.isWall(dir)) {
+                    if (cell.getNeighborCell(dir) != null
                             && (dir == Direction.UHR_0 || dir == Direction.UHR_2 || dir == Direction.UHR_4)) {
                         // Create wall only once.
                         continue;
@@ -86,10 +108,6 @@ public class A4Scene extends Scene {
         }
     }
 
-    public Vector3f to3D(Vector2f p) {
-        return new Vector3f(p.x, 0, p.y);
-    }
-
     @Override
     public void update(float time) {
         animatedMesh.update(time);
@@ -99,28 +117,38 @@ public class A4Scene extends Scene {
     public void render() {
     }
 
+    @Override
     public void setupLights(AssetManager assetManager, Node rootNode, ViewPort viewPort) {
         super.setupLights(assetManager, rootNode, viewPort);
     }
 
+    /**
+     * Convert a 2D vector to a 3D vector.
+     */
+    public Vector3f to3D(Vector2f p) {
+        return new Vector3f(p.x, 0, p.y);
+    }
+
+    /**
+     * Create and add the geometry for a hexagon cell ground.
+     */
     protected void addCellGeometry(AssetManager assetManager, String textureFilename,
                                    String normalMapFilename, Cell cell) {
-        ObjReader reader = new ObjReader();
-        TriangleMesh mesh = reader.read("Models/hexagon.obj");
+        TriangleMesh mesh = new ObjReader().read("Models/hexagon.obj");
         Vector3f cellCenter = to3D(cell.getCenter());
 
         // TODO: Create jmonkey triangle mesh, set texture and normal map texture, move to cell center,
         //  add to root node
-
     }
 
+    /**
+     * Create and add the geometry for a cell wall in a given direction.
+     */
     protected void addWallGeometry(AssetManager assetManager, String textureFilename, String normalMapFilename,
                                    Cell cell, Direction dir) {
         Vector2f orientation = dir.getOrientation();
         Vector2f wallCenter = cell.getCenter().add(orientation.mult(Cell.getZellenhoehe()));
-        ObjReader reader = new ObjReader();
-        TriangleMesh mesh = reader.read("Models/hex_wall.obj");
-        mesh.setTextureName(textureFilename);
+        TriangleMesh mesh = new ObjReader().read("Models/hex_wall.obj");
 
         // TODO: Create jmonkey triangle mesh, set texture and normal map texture, move to wall center, rotate wall,
         //  add to root node

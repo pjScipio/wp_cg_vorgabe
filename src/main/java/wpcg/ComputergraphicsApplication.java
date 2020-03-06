@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg;
 
 import com.jme3.app.FlyCamAppState;
@@ -6,27 +11,19 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.TouchInput;
 import com.jme3.input.controls.*;
-import com.jme3.light.DirectionalLight;
-import com.jme3.light.PointLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
-import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
-import wpcg.a4_a5_hexfeld.A4Scene;
+import wpcg.a1_a2_walking.IntroScene;
 import wpcg.base.CameraController;
 import wpcg.base.Scene;
-import wpcg.solution.a1.A1SceneSolution;
-import wpcg.solution.a2.A2SceneSolution;
-import wpcg.solution.a3.A3SceneSolution;
-import wpcg.solution.a4.A4SceneSolution;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This is the main application which is used for all exercises. Only adjust the scene in the main method.
  */
 public class ComputergraphicsApplication extends SimpleApplication {
 
@@ -35,34 +32,20 @@ public class ComputergraphicsApplication extends SimpleApplication {
      */
     private CameraController cameraController;
 
-    private final Scene scene;
-
     /**
-     * Mouse and key input.
+     * Scene providing the content.
      */
-    private static final String TRIGGER_MOUSE_LEFT_CLICK = "MOUSE_LEFT_CLICK_DOWN_RELEASE";
-    private static final String TRIGGER_MOUSE_RIGHT_CLICK = "MOUSE_RIGHT_CLICK_DOWN_RELEASE";
-    private static final String TRIGGER_MOUSE_MIDDLE_CLICK = "MOUSE_MIDDLE_CLICK_DOWN_RELEASE";
-    private static final String MOUSE_MOVED_LEFT = "MOUSE_MOVED_LEFT";
-    private static final String MOUSE_MOVED_RIGHT = "MOUSE_MOVED_RIGHT";
-    private static final String MOUSE_MOVED_UP = "MOUSE_MOVED_UP";
-    private static final String MOUSE_MOVED_DOWN = "MOUSE_MOVED_DOWN";
-    private static final String MOUSE_WHEEL_UP = "MOUSE_WHEEL_UP";
-    private static final String MOUSE_WHEEL_DOWN = "MOUSE_WHEEL_DOWN";
-
-    private boolean mouseLeftPressed, mouseRightPressed, mouseMiddlePressed;
+    private final Scene scene;
 
     public ComputergraphicsApplication(Scene scene) {
         this.scene = scene;
+        this.mouseLeftPressed = false;
+        this.mouseRightPressed = false;
+        this.mouseMiddlePressed = false;
     }
 
     @Override
     public void simpleInitApp() {
-
-        this.mouseLeftPressed = false;
-        this.mouseRightPressed = false;
-        this.mouseMiddlePressed = false;
-
         // Input
         setupInput();
 
@@ -75,6 +58,25 @@ public class ComputergraphicsApplication extends SimpleApplication {
         viewPort.setBackgroundColor(ColorRGBA.White);
     }
 
+    public static void main(String[] args) {
+        Logger.getLogger("com.jme3").setLevel(Level.SEVERE);
+
+        // Set the current scene here
+        Scene scene = new IntroScene();
+        ComputergraphicsApplication app = new ComputergraphicsApplication(scene);
+
+        app.setShowSettings(false);
+        AppSettings settings = new AppSettings(true);
+        settings.setTitle("WP Computergraphics");
+        settings.setWidth(1024);
+        settings.setHeight(768);
+        app.setSettings(settings);
+        app.start();
+    }
+
+    /**
+     * Register the handlers for the mous and key input (also used for the camera controller).
+     */
     private void setupInput() {
         cam.setLocation(new Vector3f(-5, 5, 5));
         stateManager.detach(stateManager.getState(FlyCamAppState.class));
@@ -108,7 +110,6 @@ public class ComputergraphicsApplication extends SimpleApplication {
         initKeys();
     }
 
-
     /**
      * Custom Keybinding: Map named actions to inputs.
      */
@@ -117,6 +118,9 @@ public class ComputergraphicsApplication extends SimpleApplication {
         inputManager.addListener(actionListener, "Walk");
     }
 
+    /**
+     * Store the mouse button state if pressed/released.
+     */
     private ActionListener actionListener = new ActionListener() {
         public void onAction(String name, boolean keyPressed, float tpf) {
             if (name.equals(TRIGGER_MOUSE_LEFT_CLICK)) {
@@ -125,8 +129,6 @@ public class ComputergraphicsApplication extends SimpleApplication {
                 mouseRightPressed = !mouseRightPressed;
             } else if (name.equals(TRIGGER_MOUSE_MIDDLE_CLICK)) {
                 mouseMiddlePressed = !mouseMiddlePressed;
-            } else {
-                System.out.print("WTF");
             }
         }
     };
@@ -137,8 +139,6 @@ public class ComputergraphicsApplication extends SimpleApplication {
     private final AnalogListener analogListener = new AnalogListener() {
         @Override
         public void onAnalog(String name, float value, float tpf) {
-
-
             if (mouseLeftPressed && name.equals(MOUSE_MOVED_LEFT)) {
                 cameraController.rotateAroundUp(-2);
             } else if (mouseLeftPressed && name.equals(MOUSE_MOVED_RIGHT)) {
@@ -155,35 +155,30 @@ public class ComputergraphicsApplication extends SimpleApplication {
         }
     };
 
-    /**
-     * Interact with game events in the main loop
-     **/
     @Override
     public void simpleUpdate(float tpf) {
         scene.update(tpf);
     }
 
-    /**
-     * (optional) Make advanced modifications to frameBuffer and scene graph.
-     **/
     @Override
     public void simpleRender(RenderManager rm) {
         scene.render();
     }
 
-    public static void main(String[] args) {
-        Logger.getLogger("com.jme3").setLevel(Level.SEVERE);
+    // +++  Mouse and key input +++++++++++++++++++++
 
-        // Set the current scene here
-        Scene scene = new A4SceneSolution();
-        ComputergraphicsApplication app = new ComputergraphicsApplication(scene);
+    /**
+     * Store the current mouse state.
+     */
+    private boolean mouseLeftPressed, mouseRightPressed, mouseMiddlePressed;
 
-        app.setShowSettings(false);
-        AppSettings settings = new AppSettings(true);
-        settings.setTitle("WP Computergraphics");
-        settings.setWidth(1024);
-        settings.setHeight(768);
-        app.setSettings(settings);
-        app.start();
-    }
+    private static final String TRIGGER_MOUSE_LEFT_CLICK = "MOUSE_LEFT_CLICK_DOWN_RELEASE";
+    private static final String TRIGGER_MOUSE_RIGHT_CLICK = "MOUSE_RIGHT_CLICK_DOWN_RELEASE";
+    private static final String TRIGGER_MOUSE_MIDDLE_CLICK = "MOUSE_MIDDLE_CLICK_DOWN_RELEASE";
+    private static final String MOUSE_MOVED_LEFT = "MOUSE_MOVED_LEFT";
+    private static final String MOUSE_MOVED_RIGHT = "MOUSE_MOVED_RIGHT";
+    private static final String MOUSE_MOVED_UP = "MOUSE_MOVED_UP";
+    private static final String MOUSE_MOVED_DOWN = "MOUSE_MOVED_DOWN";
+    private static final String MOUSE_WHEEL_UP = "MOUSE_WHEEL_UP";
+    private static final String MOUSE_WHEEL_DOWN = "MOUSE_WHEEL_DOWN";
 }

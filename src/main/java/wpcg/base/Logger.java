@@ -1,21 +1,14 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.base;
 
 /**
- * Generic logger for all platforms
+ * Generic logger for debugging messages. Implemented as singleton.
  */
 public class Logger {
-
-    /**
-     * Logging level
-     */
-    public enum Level {
-        // All messages logged (debug, msg, error, exception)
-        ALL,
-        // Only msg, error, exception
-        MEDIUM,
-        // Only error, exception
-        ONLY_ERRORS
-    }
 
     /**
      * Singleton instance.
@@ -33,24 +26,23 @@ public class Logger {
     }
 
     /**
-     * Logg message (only printed in level = ALL || level = MEDIUM)
+     * Log message.
      */
     public void msg(String msg) {
         System.out.println(msg);
     }
 
     /**
-     * Logg message (always printed)
+     * Log error.
      */
     public void error(String msg) {
         System.err.println(msg);
     }
 
-
-    public void exception(String msg, Exception e) {
-        System.out.println("Exception: " + msg + ", " + e.getMessage());
-    }
-
+    /**
+     * Log debug information.
+     */
     public void debug(String s) {
+        // Debug messages are currently ignored
     }
 }

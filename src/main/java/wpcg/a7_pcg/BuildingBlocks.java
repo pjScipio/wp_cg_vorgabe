@@ -1,5 +1,13 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.a7_pcg;
 
+/**
+ * Enumeration type for the available building blocks.
+ */
 public enum BuildingBlocks {
     BASEMENT1,
     BASEMENT2,

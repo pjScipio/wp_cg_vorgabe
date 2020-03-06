@@ -1,76 +1,93 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.a4_a5_hexfeld.level;
 
 import org.json.JSONObject;
 
 /**
- * Verbindung zwischen zwei Zellen.
- *
- * @author Philipp Jenke
+ * Internal data structure: a connection between two cells.
  */
 public class Link {
 
-    private static final String IST_WAND = "istWand";
+    /**
+     * The two connected cells.
+     */
+    private Cell[] cells;
 
     /**
-     * Die beiden Zellen, die durch den Link verbunden sind.
+     * Flag indicating weather the link has a wall.
      */
-    private Cell[] zellen = new Cell[2];
-
-    /**
-     * Flag für Wand-Verbindungen.
-     */
-    private boolean istWand = false;
+    private boolean isWall = false;
 
     public Link() {
-        zellen[0] = null;
-        zellen[1] = null;
+        this(null, null);
     }
 
     public Link(Cell zelle1, Cell zelle2) {
-        zellen[0] = zelle1;
-        zellen[1] = zelle2;
+        cells = new Cell[2];
+        isWall = false;
+        cells[0] = zelle1;
+        cells[1] = zelle2;
     }
 
     /**
-     * Liefert die andere Zelle (als die Parameter-Zelle).
+     * Return the opposite cell along the link.
      */
-    public Cell getAndereZelle(Cell zelle) {
-        if (zellen[0] == zelle) {
-            return zellen[1];
+    public Cell getOppositeCell(Cell zelle) {
+        if (cells[0] == zelle) {
+            return cells[1];
         } else {
-            return zellen[0];
+            return cells[0];
         }
     }
 
-    public void setWand(boolean hatWand) {
-        istWand = hatWand;
+    /**
+     * Set the cell a one link
+     */
+    public void setZelle(Cell zelle) {
+        if (cells[0] == null) {
+            cells[0] = zelle;
+        } else if (cells[1] == null) {
+            cells[1] = zelle;
+        } else {
+            throw new IllegalArgumentException("Link hat bereits zwei Zellen!");
+        }
     }
 
-    public boolean istWand() {
-        return istWand;
+    // +++ GETTER/SETTER ++++++++++++++
+
+    public void setIsWall(boolean hatWand) {
+        isWall = hatWand;
     }
 
+    public boolean isWall() {
+        return isWall;
+    }
+
+    // +++ JSON ++++++++++++++++++++++++++
+
+    /**
+     * JSON constant identifier.
+     */
+    private static final String IST_WAND = "istWand";
+
+    /**
+     * Create JSON objekt from link information.
+     */
     public JSONObject toJson(Object metaInformation) {
         JSONObject linkObjekt = new JSONObject();
-        linkObjekt.put(IST_WAND, istWand());
+        linkObjekt.put(IST_WAND, isWall());
         return linkObjekt;
     }
 
-    public void fromJson(JSONObject jsonObjekt, Object metaInformation) {
-        boolean istWand = (boolean) jsonObjekt.get(IST_WAND);
-        setWand(istWand);
-    }
-
     /**
-     * Setzt die angegebene Zelle als eine der Zellen des Links
+     * Set link information from JSON object.
      */
-    public void setZelle(Cell zelle) {
-        if (zellen[0] == null) {
-            zellen[0] = zelle;
-        } else if (zellen[1] == null) {
-            zellen[1] = zelle;
-        } else {
-            System.out.println("Link hat bereits zwei Zellen!");
-        }
+    public void fromJson(JSONObject jsonObjekt, Object metaInformation) {
+        boolean isWall = (boolean) jsonObjekt.get(IST_WAND);
+        setIsWall(isWall);
     }
 }

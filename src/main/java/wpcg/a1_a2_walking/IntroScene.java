@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
+ * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.a1_a2_walking;
 
 import com.jme3.asset.AssetManager;
@@ -18,12 +23,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This introduction scene contains the content of the first exercise: a knight that walks on a squared plane.
+ */
 public class IntroScene extends Scene {
 
+    /**
+     * The asset manager is used to read content (e.g. triangle meshes or texture) from file to jMonkey.
+     */
     private AssetManager assetManager;
+
+    /**
+     * This is the root node of the scene graph with all the scene content.
+     */
     private Node rootNode;
+
+    /**
+     * This node contains the knight.
+     */
     private Node knightNode;
-    private List<AnimatedMesh> animatedMeshList;
+
+    /**
+     * A list of all animated entities
+     */
+    protected List<AnimatedMesh> animatedMeshList;
 
     public IntroScene() {
         assetManager = null;
@@ -41,14 +64,16 @@ public class IntroScene extends Scene {
 
         // Load animated knight
         knightNode = loadCharacter(assetManager, rootNode, "Models/knight.gltf");
+        knightNode.setLocalScale(0.01f);
         AnimationControllerPath knightAnimationController = new AnimationControllerPath(Arrays.asList(
                 new Vector3f(6, 0, -6),
                 new Vector3f(6, 0, -3.5f),
                 new Vector3f(-3.5f, 0, 6),
                 new Vector3f(-6f, 0, 6f),
                 new Vector3f(-6f, 0, -6f)), 1.2f);
-        addAnimatedMesh(new AnimatedMesh(knightNode, knightAnimationController));
+        animatedMeshList.add(new AnimatedMesh(knightNode, knightAnimationController));
 
+        // Add a square to the scene graph
         createGround();
     }
 
@@ -62,11 +87,6 @@ public class IntroScene extends Scene {
 
     @Override
     public void render() {
-    }
-
-
-    protected void addAnimatedMesh(AnimatedMesh animatedMesh) {
-        animatedMeshList.add(animatedMesh);
     }
 
     /**
