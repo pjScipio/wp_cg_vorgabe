@@ -3,7 +3,7 @@
  * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
-package wpcg.a1_a2_walking;
+package wpcg.a1;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;

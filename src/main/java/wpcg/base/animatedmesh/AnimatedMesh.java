@@ -57,4 +57,8 @@ public class AnimatedMesh extends Node {
     public Node getNode() {
         return node;
     }
+
+    public void setAnimationController(AnimationController animationController) {
+        this.animationController = animationController;
+    }
 }

@@ -3,7 +3,7 @@
  * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
-package wpcg.a3_subdivision.halfedge;
+package wpcg.a3.halfedge;
 
 /**
  * A half edge has references to the next edge within the current facet, the

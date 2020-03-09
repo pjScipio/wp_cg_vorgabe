@@ -15,7 +15,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
-import wpcg.a1_a2_walking.IntroScene;
+import wpcg.a1.IntroScene;
 import wpcg.base.CameraController;
 import wpcg.base.Scene;
 

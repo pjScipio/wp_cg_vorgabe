@@ -3,7 +3,7 @@
  * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
-package wpcg.a7_pcg;
+package wpcg.a7;
 
 import java.util.Arrays;
 import java.util.List;

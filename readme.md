@@ -18,3 +18,8 @@ IntelliJ Import -> Gradle project
     * set scene in 
 
             wpcg.ComputergraphicsApplication.main()
+            
+## Camera
+
+* Rotate: left mouse button press + move
+* Zoom: Mouse wheel oder middle mouse button + move

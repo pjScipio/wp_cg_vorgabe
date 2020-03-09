@@ -3,7 +3,7 @@
  * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
-package wpcg.a4_a5_hexfeld;
+package wpcg.a4;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector2f;
@@ -12,9 +12,9 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import wpcg.base.mesh.ObjReader;
 import wpcg.base.mesh.TriangleMesh;
-import wpcg.a4_a5_hexfeld.level.Cell;
-import wpcg.a4_a5_hexfeld.level.Level;
-import wpcg.a4_a5_hexfeld.level.Direction;
+import wpcg.a4.level.Cell;
+import wpcg.a4.level.Level;
+import wpcg.a4.level.Direction;
 import wpcg.base.animatedmesh.AnimatedMesh;
 import wpcg.base.animatedmesh.AnimationControllerPath;
 import wpcg.base.CameraController;
@@ -56,16 +56,9 @@ public class A4Scene extends Scene {
         this.level.readLevelFromFile("src/main/resources/levels/level01.json");
     }
 
-    @Override
-    public void init(AssetManager assetManager, Node rootNode, CameraController cameraController) {
-        this.rootNode = rootNode;
-        this.cameraController = cameraController;
-        Vector3f levelCenter = level.getCenter();
-        cameraController.setup(new Vector3f(10, 10, 10),
-                levelCenter, new Vector3f(0, 1, 0));
-
+    protected List<Vector3f> getWayPoints() {
         // Set path for the knight (list of cell centers)
-        List<Vector3f> path = Arrays.asList(
+        return Arrays.asList(
                 to3D(level.getCell(0, 1).getCenter()),
                 to3D(level.getCell(1, 0).getCenter()),
                 to3D(level.getCell(2, 0).getCenter()),
@@ -79,11 +72,21 @@ public class A4Scene extends Scene {
                 to3D(level.getCell(0, 3).getCenter()),
                 to3D(level.getCell(0, 2).getCenter())
         );
+    }
+
+    @Override
+    public void init(AssetManager assetManager, Node rootNode, CameraController cameraController) {
+        this.rootNode = rootNode;
+        this.cameraController = cameraController;
+        Vector3f levelCenter = level.getCenter();
+        cameraController.setup(new Vector3f(10, 10, 10),
+                levelCenter, new Vector3f(0, 1, 0));
+
 
         // Setup animated knight mesh.
         Node knightNode = loadCharacter(assetManager, rootNode, "Models/knight.gltf");
         knightNode.setLocalScale(0.003f);
-        AnimationControllerPath knightAnimationController = new AnimationControllerPath(path, 0.5f);
+        AnimationControllerPath knightAnimationController = new AnimationControllerPath(getWayPoints(), 0.5f);
         animatedMesh = new AnimatedMesh(knightNode, knightAnimationController);
 
         // Render cells

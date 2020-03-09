@@ -3,7 +3,7 @@
  * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
-package wpcg.a4_a5_hexfeld.level;
+package wpcg.a4.level;
 
 import org.json.JSONObject;
 

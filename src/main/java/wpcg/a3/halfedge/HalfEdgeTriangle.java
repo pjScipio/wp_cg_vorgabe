@@ -3,7 +3,7 @@
  * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
-package wpcg.a3_subdivision.halfedge;
+package wpcg.a3.halfedge;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
