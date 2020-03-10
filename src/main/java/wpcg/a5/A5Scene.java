@@ -1,12 +1,11 @@
 /**
  * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
- * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
 package wpcg.a5;
 
 import com.jme3.asset.AssetManager;
-import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;

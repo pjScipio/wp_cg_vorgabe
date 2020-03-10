@@ -1,17 +1,17 @@
 /**
  * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
- * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  * <p>
  * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
- * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  * <p>
  * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
- * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
 /**
  * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
- * für Angwandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 package wpcg.base.animatedmesh;
 
