@@ -10,8 +10,6 @@ import com.jme3.math.Vector3f;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import wpcg.base.Logger;
-import wpcg.solution.a4.editor.Beobachteter;
-import wpcg.solution.a4.editor.LevelGenerator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,7 +25,7 @@ import java.util.stream.Stream;
 /**
  * A level consisting of a grid of hexagon cells which are connected via links. Each link can be a wall or not.
  */
-public class Level extends Beobachteter {
+public class Level extends Observable {
 
     /**
      * Set containing all cells.
