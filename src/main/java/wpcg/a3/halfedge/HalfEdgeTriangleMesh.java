@@ -67,7 +67,7 @@ public class HalfEdgeTriangleMesh {
     public static HalfEdgeTriangleMesh from(TriangleMesh mesh) {
         HalfEdgeTriangleMesh heMesh = new HalfEdgeTriangleMesh();
         for (int i = 0; i < mesh.getNumberOfVertices(); i++) {
-            heMesh.addVertex(mesh.getVertex(i).getPosition());
+            heMesh.addVertex(new Vector3f(mesh.getVertex(i).getPosition()));
         }
         for (int i = 0; i < mesh.getNumberOfTriangles(); i++) {
             Triangle t = mesh.getTriangle(i);
