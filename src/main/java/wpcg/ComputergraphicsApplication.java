@@ -18,7 +18,6 @@ import com.jme3.system.AppSettings;
 import wpcg.a1.IntroScene;
 import wpcg.base.CameraController;
 import wpcg.base.Scene;
-import wpcg.solution.a3.A3SceneSolution;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,7 +62,7 @@ public class ComputergraphicsApplication extends SimpleApplication {
         Logger.getLogger("com.jme3").setLevel(Level.SEVERE);
 
         // Set the current scene here
-        Scene scene = new A3SceneSolution();
+        Scene scene = new IntroScene();
         ComputergraphicsApplication app = new ComputergraphicsApplication(scene);
 
         app.setShowSettings(false);
