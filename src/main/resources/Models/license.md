@@ -10,8 +10,7 @@
 
 ## Medieval House
 
-* Free3D: tomthebomb 
-* https://free3d.com/3d-model/breezehome-skyrim-907780.html
+* OpenGameArt, User drummyfish, CC0, hhttps://opengameart.org/content/rpg-item-collection-3
 
 ## Knight
 

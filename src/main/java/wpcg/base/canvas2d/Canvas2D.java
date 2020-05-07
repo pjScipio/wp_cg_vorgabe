@@ -104,21 +104,21 @@ public abstract class Canvas2D extends Canvas {
     /**
      * World -> pixel coordinates.
      */
-    private Vector2f world2Pixel(Vector2f pWorld) {
+    protected Vector2f world2Pixel(Vector2f pWorld) {
         return unit2Pixel(world2Unit(pWorld));
     }
 
     /**
      * Pixel coordinates -> world coordinates.
      */
-    Vector2f pixel2World(Vector2f pPixel) {
+    protected Vector2f pixel2World(Vector2f pPixel) {
         return unit2World(pixel2Unit(pPixel));
     }
 
     /**
      * World coordinates -> unit coordinates.
      */
-    private Vector2f world2Unit(Vector2f pWorld) {
+    protected Vector2f world2Unit(Vector2f pWorld) {
         Vector2f diagonal = ur.subtract(ll);
         float scale = Math.max(diagonal.x, diagonal.y);
         Vector2f pUnit = pWorld.subtract(ll).mult(1.0f / scale);
@@ -128,7 +128,7 @@ public abstract class Canvas2D extends Canvas {
     /**
      * Unit coordinates -> world coordinates.
      */
-    private Vector2f unit2World(Vector2f pUnit) {
+    protected Vector2f unit2World(Vector2f pUnit) {
         Vector2f diagonal = ur.subtract(ll);
         float scale = Math.max(diagonal.x, diagonal.y);
         return pUnit.mult(scale).add(ll);
@@ -137,7 +137,7 @@ public abstract class Canvas2D extends Canvas {
     /**
      * Unit coordinates -> pixel coordinates
      */
-    private Vector2f unit2Pixel(Vector2f pUnit) {
+    protected Vector2f unit2Pixel(Vector2f pUnit) {
         float scale = Math.min(getWidth(), getHeight());
         Vector2f offset = new Vector2f((getWidth() - scale) / 2.0f, (getHeight() - scale) / 2.0f);
         Vector2f pPixel = pUnit.mult(scale).add(offset);
@@ -148,7 +148,7 @@ public abstract class Canvas2D extends Canvas {
     /**
      * Pixel coorinates -> unit coordinates.
      */
-    private Vector2f pixel2Unit(Vector2f pPixel) {
+    protected Vector2f pixel2Unit(Vector2f pPixel) {
         float scale = Math.min(getWidth(), getHeight());
         Vector2f offset = new Vector2f((getWidth() - scale) / 2.0f, (getHeight() - scale) / 2.0f);
         Vector2f pUnit = new Vector2f(pPixel.x, getHeight() - pPixel.y);

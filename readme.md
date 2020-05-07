@@ -19,5 +19,5 @@ IntelliJ Import -> Gradle project
 ### 2D Main Application: 
 
 * `wpcg.ComputergraphicsApplication2D`
-* with example content `pcg.base.canvas2d.Canvas2D` 
+* with example content `wpcg.base.canvas2d.Canvas2D` 
             
