@@ -67,7 +67,7 @@ public class ComputergraphicsApplication extends SimpleApplication {
 
         app.setShowSettings(false);
         AppSettings settings = new AppSettings(true);
-        settings.setTitle("WP Computergraphics");
+        settings.setTitle("WP Computergraphics (3D)");
         settings.setWidth(1024);
         settings.setHeight(768);
         app.setSettings(settings);

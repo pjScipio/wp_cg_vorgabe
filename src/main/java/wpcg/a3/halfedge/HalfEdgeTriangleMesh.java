@@ -291,7 +291,9 @@ public class HalfEdgeTriangleMesh {
     /**
      * Split each triangle into four sub-triangles.
      * <p>
-     * The olf old half edges and facets are kept and should be replaced later.
+     * The old half edges and facets are kept and should be replaced later.
+     *
+     * @return Mapping between the newly created vertices and the old half edges they were created from.
      */
     public Map<HalfEdgeVertex, HalfEdge> split() {
         // Create 4 triangles for each old triangle
