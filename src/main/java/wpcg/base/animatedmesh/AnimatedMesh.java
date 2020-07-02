@@ -5,9 +5,7 @@
 
 package wpcg.base.animatedmesh;
 
-import com.jme3.animation.AnimChannel;
-import com.jme3.animation.AnimControl;
-import com.jme3.animation.AnimEventListener;
+import com.jme3.anim.AnimComposer;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 
@@ -22,11 +20,6 @@ public class AnimatedMesh extends Node {
     private Node node;
 
     /**
-     * Animation channel for the player wpcg.model.
-     */
-    private AnimChannel channel;
-
-    /**
      * This controller is used to define the movement of the mesh over time.
      */
     private AnimationController animationController;
@@ -34,9 +27,9 @@ public class AnimatedMesh extends Node {
     public AnimatedMesh(Node node, AnimationController animationController) {
         this.node = node;
         this.animationController = animationController;
-        AnimControl control = node.getControl(AnimControl.class);
-        channel = control.createChannel();
-        channel.setAnim("walk");
+        AnimComposer composer = node.getControl(AnimComposer.class);
+        var clips = composer.getAnimClips();
+        composer.setCurrentAction("walk");
     }
 
     /**

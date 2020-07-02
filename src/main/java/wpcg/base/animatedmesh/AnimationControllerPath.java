@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * An entity has a location and orientation in the scene.
  */
-public class AnimationControllerPath implements AnimationController {
+public class AnimationControllerPath extends AnimationController {
     /**
      * Path for the entity to move on.
      */

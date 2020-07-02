@@ -8,6 +8,7 @@ package wpcg.base;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import wpcg.base.animatedmesh.AnimationController;
+import wpcg.base.animatedmesh.Pose;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class Path {
     /**
      * Get the current position on the path.
      */
-    public AnimationController.Pose getCurrentPose() {
+    public Pose getCurrentPose() {
         float t = this.t;
         int segmentIndex = getSegmentIndex();
         float segmentLength = getSegmentLength(segmentIndex);
@@ -55,7 +56,7 @@ public class Path {
         Vector3f pos = waypoints.get(segmentIndex).mult((1 - alpha)).add(
                 waypoints.get((segmentIndex + 1) % waypoints.size()).mult(alpha));
         Vector3f dir = waypoints.get((segmentIndex + 1) % waypoints.size()).subtract(waypoints.get(segmentIndex));
-        return new AnimationController.Pose(pos, makeRotation(dir));
+        return new Pose(pos, makeRotation(dir));
     }
 
     /**

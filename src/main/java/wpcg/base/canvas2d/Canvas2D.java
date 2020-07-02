@@ -7,12 +7,13 @@ package wpcg.base.canvas2d;
 
 import com.jme3.math.Vector2f;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-public abstract class Canvas2D extends Canvas {
+public abstract class Canvas2D extends JPanel {
 
     private static final int POINT_SIZE = 6;
 
