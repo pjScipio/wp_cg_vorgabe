@@ -16,22 +16,22 @@ import java.awt.*;
  */
 public class ComputergraphicsApplication2D extends JFrame {
 
-    public ComputergraphicsApplication2D() {
+  public ComputergraphicsApplication2D() {
 
-        // Set the 2D canvas here
-        Canvas2D curveCanvas2D = new SimpleExampleCanvas2D(600, 600);
-        curveCanvas2D.setupListener();
-        getContentPane().add(curveCanvas2D);
+    // Set the 2D canvas here
+    Canvas2D curveCanvas2D = new SimpleExampleCanvas2D(600, 600);
+    curveCanvas2D.setupListener();
+    getContentPane().add(curveCanvas2D);
 
-        // Layout
-        setLayout(new BorderLayout());
-        setTitle("WP Computergraphics (2D)");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(800, 600);
-        setVisible(true);
-    }
+    // Layout
+    setLayout(new BorderLayout());
+    setTitle("WP Computergraphics (2D)");
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setSize(800, 600);
+    setVisible(true);
+  }
 
-    public static void main(String[] args) {
-        new ComputergraphicsApplication2D();
-    }
+  public static void main(String[] args) {
+    new ComputergraphicsApplication2D();
+  }
 }

@@ -11,51 +11,51 @@ import com.jme3.math.ColorRGBA;
  * Represents an OBJ-file material.
  */
 public class Material {
-    /**
-     * Name of the material.
-     */
-    private String name;
+  /**
+   * Name of the material.
+   */
+  private String name;
 
-    /**
-     * Name of the texture file (if available)
-     */
-    private String textureFilename;
+  /**
+   * Name of the texture file (if available)
+   */
+  private String textureFilename;
 
-    /**
-     * Color.
-     */
-    private ColorRGBA color;
+  /**
+   * Color.
+   */
+  private ColorRGBA color;
 
-    public Material(String name) {
-        this.name = name;
-        this.textureFilename = null;
-        color = new ColorRGBA(1, 1, 1, 1);
-    }
+  public Material(String name) {
+    this.name = name;
+    this.textureFilename = null;
+    color = new ColorRGBA(1, 1, 1, 1);
+  }
 
-    @Override
-    public String toString() {
-        return name + ": " + color + ", " + textureFilename;
-    }
+  @Override
+  public String toString() {
+    return name + ": " + color + ", " + textureFilename;
+  }
 
-    // +++ GETTER/SETTER +++++++++++++++++++++++++
+  // +++ GETTER/SETTER +++++++++++++++++++++++++
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public ColorRGBA getColor() {
-        return color;
-    }
+  public ColorRGBA getColor() {
+    return color;
+  }
 
-    public void setColor(ColorRGBA color) {
-        this.color = color;
-    }
+  public void setColor(ColorRGBA color) {
+    this.color = color;
+  }
 
-    public String getTextureFilename() {
-        return textureFilename;
-    }
+  public String getTextureFilename() {
+    return textureFilename;
+  }
 
-    public void setTextureFilename(String filename) {
-        this.textureFilename = filename;
-    }
+  public void setTextureFilename(String filename) {
+    this.textureFilename = filename;
+  }
 }

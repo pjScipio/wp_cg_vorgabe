@@ -14,44 +14,45 @@ import com.jme3.scene.Node;
  */
 public class AnimatedMesh extends Node {
 
-    /**
-     * Scene graph node.
-     */
-    private Node node;
+  /**
+   * Scene graph node.
+   */
+  private Node node;
 
-    /**
-     * This controller is used to define the movement of the mesh over time.
-     */
-    private AnimationController animationController;
+  /**
+   * This controller is used to define the movement of the mesh over time.
+   */
+  private AnimationController animationController;
 
-    public AnimatedMesh(Node node, AnimationController animationController) {
-        this.node = node;
-        this.animationController = animationController;
-        AnimComposer composer = node.getControl(AnimComposer.class);
-        var clips = composer.getAnimClips();
-        composer.setCurrentAction("walk");
-    }
+  public AnimatedMesh(Node node, AnimationController animationController) {
+    this.node = node;
+    this.animationController = animationController;
+    AnimComposer composer = node.getControl(AnimComposer.class);
+    var clips = composer.getAnimClips();
+    composer.setCurrentAction("walk");
+  }
 
-    /**
-     * Call this method to advance in the animation based on the current controller.
-     */
-    public void update(float time) {
-        animationController.move(time);
-        getNode().setLocalTranslation(animationController.getPose().pos);
-        getNode().setLocalRotation(animationController.getPose().rot);
-    }
+  /**
+   * Call this method to advance in the animation based on the current
+   * controller.
+   */
+  public void update(float time) {
+    animationController.move(time);
+    getNode().setLocalTranslation(animationController.getPose().pos);
+    getNode().setLocalRotation(animationController.getPose().rot);
+  }
 
-    // +++ GETTER/SETTER ++++++++++++++++
+  // +++ GETTER/SETTER ++++++++++++++++
 
-    public Vector3f getDirection() {
-        return animationController.getDirection();
-    }
+  public Vector3f getDirection() {
+    return animationController.getDirection();
+  }
 
-    public Node getNode() {
-        return node;
-    }
+  public Node getNode() {
+    return node;
+  }
 
-    public void setAnimationController(AnimationController animationController) {
-        this.animationController = animationController;
-    }
+  public void setAnimationController(AnimationController animationController) {
+    this.animationController = animationController;
+  }
 }

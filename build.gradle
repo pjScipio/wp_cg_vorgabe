@@ -8,7 +8,6 @@ repositories {
     jcenter()
 }
 
-//def jme3 = [v: '3.2.4-stable', g: 'org.jmonkeyengine']
 def jme3 = [v: '3.3.2-stable', g: 'org.jmonkeyengine']
 
 dependencies {

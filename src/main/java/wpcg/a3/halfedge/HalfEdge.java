@@ -11,95 +11,95 @@ package wpcg.a3.halfedge;
  */
 public class HalfEdge {
 
-    /**
-     * Reference to the next edge in the mesh.
-     */
-    private HalfEdge next;
+  /**
+   * Reference to the next edge in the mesh.
+   */
+  private HalfEdge next;
 
-    /**
-     * Reference to the opposite edge in the mesh.
-     */
-    private HalfEdge opposite;
+  /**
+   * Reference to the opposite edge in the mesh.
+   */
+  private HalfEdge opposite;
 
-    /**
-     * Start vertex of the half edge.
-     */
-    private HalfEdgeVertex startVertex;
+  /**
+   * Start vertex of the half edge.
+   */
+  private HalfEdgeVertex startVertex;
 
-    /**
-     * The half edge belongs to this facet.
-     */
-    private HalfEdgeTriangle facet;
+  /**
+   * The half edge belongs to this facet.
+   */
+  private HalfEdgeTriangle facet;
 
-    public HalfEdge() {
-        this.next = null;
-        this.opposite = null;
-        this.startVertex = null;
-        this.facet = null;
+  public HalfEdge() {
+    this.next = null;
+    this.opposite = null;
+    this.startVertex = null;
+    this.facet = null;
+  }
+
+  public HalfEdge(HalfEdgeVertex v) {
+    this.next = null;
+    this.opposite = null;
+    this.startVertex = v;
+    this.facet = null;
+  }
+
+  @Override
+  public String toString() {
+    return "Half Edge";
+  }
+
+  /**
+   * Return the end vertex of a half edge (not directly saved.
+   *
+   * @return End index of the half edge, null on error.
+   */
+  public HalfEdgeVertex getEndVertex() {
+    if (getNext() == null) {
+      throw new IllegalArgumentException();
     }
+    return getNext().getStartVertex();
+  }
 
-    public HalfEdge(HalfEdgeVertex v) {
-        this.next = null;
-        this.opposite = null;
-        this.startVertex = v;
-        this.facet = null;
-    }
+  /**
+   * Returns true if the edge is at the boundary (has no opposite half edge).
+   */
+  public boolean isBoundary() {
+    return opposite == null;
+  }
 
-    @Override
-    public String toString() {
-        return "Half Edge";
-    }
+  // +++ GETTER/SETTER +++++++++++++++++++++++++++++++++++++
 
-    /**
-     * Return the end vertex of a half edge (not directly saved.
-     *
-     * @return End index of the half edge, null on error.
-     */
-    public HalfEdgeVertex getEndVertex() {
-        if (getNext() == null) {
-            throw new IllegalArgumentException();
-        }
-        return getNext().getStartVertex();
-    }
+  public HalfEdge getNext() {
+    return next;
+  }
 
-    /**
-     * Returns true if the edge is at the boundary (has no opposite half edge).
-     */
-    public boolean isBoundary() {
-        return opposite == null;
-    }
+  public void setNext(HalfEdge next) {
+    this.next = next;
+  }
 
-    // +++ GETTER/SETTER +++++++++++++++++++++++++++++++++++++
+  public HalfEdge getOpposite() {
+    return opposite;
+  }
 
-    public HalfEdge getNext() {
-        return next;
-    }
+  public void setOpposite(HalfEdge opposite) {
+    this.opposite = opposite;
+  }
 
-    public void setNext(HalfEdge next) {
-        this.next = next;
-    }
+  public HalfEdgeVertex getStartVertex() {
+    return startVertex;
+  }
 
-    public HalfEdge getOpposite() {
-        return opposite;
-    }
+  public void setStartVertex(HalfEdgeVertex startVertex) {
+    this.startVertex = startVertex;
+  }
 
-    public void setOpposite(HalfEdge opposite) {
-        this.opposite = opposite;
-    }
+  public HalfEdgeTriangle getFacet() {
+    return facet;
+  }
 
-    public HalfEdgeVertex getStartVertex() {
-        return startVertex;
-    }
-
-    public void setStartVertex(HalfEdgeVertex startVertex) {
-        this.startVertex = startVertex;
-    }
-
-    public HalfEdgeTriangle getFacet() {
-        return facet;
-    }
-
-    public void setFacet(HalfEdgeTriangle facet) {
-        this.facet = facet;
-    }
+  public void setFacet(HalfEdgeTriangle facet) {
+    this.facet = facet;
+  }
 }

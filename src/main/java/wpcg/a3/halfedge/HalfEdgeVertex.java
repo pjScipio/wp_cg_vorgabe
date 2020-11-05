@@ -12,43 +12,43 @@ import com.jme3.math.Vector3f;
  *
  * @author Philipp Jenke
  */
-public class HalfEdgeVertex  {
+public class HalfEdgeVertex {
 
-    /**
-     * Reference to one of the outgoing half edges.
-     */
-    private HalfEdge halfEgde = null;
+  /**
+   * Reference to one of the outgoing half edges.
+   */
+  private HalfEdge halfEgde = null;
 
-    /**
-     * Position.
-     */
-    private Vector3f pos;
+  /**
+   * Position.
+   */
+  private Vector3f pos;
 
-    /**
-     * Constructor.
-     *
-     * @param position Initial value for position.
-     */
-    public HalfEdgeVertex(Vector3f position) {
-        this.pos = position;
-    }
+  /**
+   * Constructor.
+   *
+   * @param position Initial value for position.
+   */
+  public HalfEdgeVertex(Vector3f position) {
+    this.pos = position;
+  }
 
-    @Override
-    public String toString() {
-        return "HalfEdgeVertex";
-    }
+  @Override
+  public String toString() {
+    return "HalfEdgeVertex";
+  }
 
-    // +++ GETTER/SETTER ++++++++++++
+  // +++ GETTER/SETTER ++++++++++++
 
-    public HalfEdge getHalfEdge() {
-        return halfEgde;
-    }
+  public HalfEdge getHalfEdge() {
+    return halfEgde;
+  }
 
-    public void setHalfEgde(HalfEdge halfEgde) {
-        this.halfEgde = halfEgde;
-    }
+  public void setHalfEgde(HalfEdge halfEgde) {
+    this.halfEgde = halfEgde;
+  }
 
-    public Vector3f getPosition() {
-        return pos;
-    }
+  public Vector3f getPosition() {
+    return pos;
+  }
 }

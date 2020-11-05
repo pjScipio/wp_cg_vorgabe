@@ -10,39 +10,39 @@ package wpcg.base;
  */
 public class Logger {
 
-    /**
-     * Singleton instance.
-     */
-    private static Logger instance = null;
+  /**
+   * Singleton instance.
+   */
+  private static Logger instance = null;
 
-    private Logger() {
-    }
+  private Logger() {
+  }
 
-    public static Logger getInstance() {
-        if (instance == null) {
-            instance = new Logger();
-        }
-        return instance;
+  public static Logger getInstance() {
+    if (instance == null) {
+      instance = new Logger();
     }
+    return instance;
+  }
 
-    /**
-     * Log message.
-     */
-    public void msg(String msg) {
-        System.out.println(msg);
-    }
+  /**
+   * Log message.
+   */
+  public void msg(String msg) {
+    System.out.println(msg);
+  }
 
-    /**
-     * Log error.
-     */
-    public void error(String msg) {
-        System.err.println(msg);
-    }
+  /**
+   * Log error.
+   */
+  public void error(String msg) {
+    System.err.println(msg);
+  }
 
-    /**
-     * Log debug information.
-     */
-    public void debug(String s) {
-        // Debug messages are currently ignored
-    }
+  /**
+   * Log debug information.
+   */
+  public void debug(String s) {
+    // Debug messages are currently ignored
+  }
 }
