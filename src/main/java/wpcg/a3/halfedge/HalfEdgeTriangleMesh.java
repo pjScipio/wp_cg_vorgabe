@@ -391,4 +391,19 @@ public class HalfEdgeTriangleMesh {
   public void removeHalfEdge(int index) {
     halfEdges.remove(index);
   }
+
+  /**
+   * Returns true if the vertex is a boundary vertex.
+   */
+  public boolean isBoundaryVertex(HalfEdgeVertex v) {
+    HalfEdge currentHE = v.getHalfEdge();
+    do {
+      if (currentHE.getOpposite() == null) {
+        return true;
+      } else {
+        currentHE = currentHE.getOpposite().getNext();
+      }
+    } while (currentHE != v.getHalfEdge());
+    return false;
+  }
 }

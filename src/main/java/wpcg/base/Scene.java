@@ -47,7 +47,7 @@ public abstract class Scene {
 
     // Shadows
     DirectionalLight sun = new DirectionalLight();
-    sun.setColor(new ColorRGBA(1, 1, 1, 1));
+    sun.setColor(new ColorRGBA(0.5f, 0.5f, 0.5f, 1));
     sun.setDirection(new Vector3f(0.5f, -1, -0.5f));
     rootNode.addLight(sun);
   }
