@@ -26,6 +26,11 @@ public class CameraController extends CameraControl {
   private final float ANGLE_ROUND_UP = 0.06f;
 
   /**
+   * Rotation speed.
+   */
+  private final float ROTATE_SPEED = 0.3f;
+
+  /**
    * Reference point.
    */
   private Vector3f ref;
@@ -42,7 +47,7 @@ public class CameraController extends CameraControl {
     Vector3f eye = cam.getLocation();
     Vector3f dir = ref.subtract(eye);
     Matrix3f m = new Matrix3f();
-    m.fromAngleAxis(ANGLE_ROUND_UP * sign, cam.getUp());
+    m.fromAngleAxis(ANGLE_ROUND_UP * sign * ROTATE_SPEED, cam.getUp());
     Vector3f newDir = m.mult(dir);
     Vector3f newEye = ref.subtract(newDir);
     cam.setLocation(newEye);
@@ -56,7 +61,7 @@ public class CameraController extends CameraControl {
     Vector3f eye = cam.getLocation();
     Vector3f dir = ref.subtract(eye);
     Matrix3f m = new Matrix3f();
-    m.fromAngleAxis(ANGLE_ROUND_UP * sign, cam.getLeft());
+    m.fromAngleAxis(ANGLE_ROUND_UP * sign * ROTATE_SPEED, cam.getLeft());
     Vector3f newDir = m.mult(dir);
     Vector3f newEye = ref.subtract(newDir);
     cam.setLocation(newEye);
@@ -83,22 +88,11 @@ public class CameraController extends CameraControl {
   /**
    * Zoom closer to the reference point.
    */
-  public void zoomIn() {
+  public void zoom(float delta) {
     Vector3f eye = cam.getLocation();
     Vector3f ref = this.ref;
     Vector3f dir = ref.subtract(eye);
-    dir = dir.mult(0.02f);
-    cam.setLocation(eye.add(dir));
-  }
-
-  /**
-   * Zoom further away from the reference point.
-   */
-  public void zoomOut() {
-    Vector3f eye = cam.getLocation();
-    Vector3f ref = this.ref;
-    Vector3f dir = ref.subtract(eye);
-    dir = dir.mult(-0.02f);
+    dir = dir.mult(delta / 500.0f);
     cam.setLocation(eye.add(dir));
   }
 }

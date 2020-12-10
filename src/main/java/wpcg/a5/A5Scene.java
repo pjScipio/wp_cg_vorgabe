@@ -26,6 +26,7 @@ import wpcg.a5.kdtree.NearestNeighborSearch;
 import wpcg.base.CameraController;
 import wpcg.base.Scene;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +40,6 @@ public class A5Scene extends Scene {
    */
   protected Node rootNode;
 
-  /**
-   * The root node of the KD tree of the data points in the scene.
-   */
-  protected KDTreeNode<Geometry> kdTree;
 
   /**
    * Camera controller.
@@ -112,7 +109,6 @@ public class A5Scene extends Scene {
   public A5Scene() {
     this.cameraController = null;
     this.rootNode = null;
-    this.kdTree = null;
     this.assetManager = null;
     this.points = null;
     this.movingPoint = null;
@@ -131,19 +127,7 @@ public class A5Scene extends Scene {
     this.cameraController = cameraController;
     this.assetManager = assetManager;
 
-    // Generate test data
-    points = makeRandomPoints(NUM_POINTS);
-
-    // TODO: Build kd-tree
-
-    // Setup nearest neighbor search
-    this.nearestNeighborSearch = new NearestNeighborSearch(kdTree, points);
-
-    // Draw hyperplanes (do not call with more than 100 data points)
-    //addHyperplanesToSceneGraph(kdTree);
-
-    // Draw a point which moves thru the scene
-    addMovingPointToSceneGraph();
+    createPointScene(100);
   }
 
   /**
@@ -268,5 +252,54 @@ public class A5Scene extends Scene {
     light1.setColor(new ColorRGBA(1f, 1f, 1f, 1));
     light1.setRadius(40);
     rootNode.addLight(light1);
+  }
+
+  @Override
+  public String getTitle() {
+    return "KD tree";
+  }
+
+  @Override
+  public JPanel getUI() {
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+    JTextField textFieldNumPoints = new JTextField("100");
+    mainPanel.add(textFieldNumPoints);
+    JButton buttonNumPoints = new JButton("Generate");
+    buttonNumPoints.addActionListener(e -> createPointScene(Integer.parseInt(textFieldNumPoints.getText())));
+    mainPanel.add(buttonNumPoints);
+    return mainPanel;
+  }
+
+  /**
+   * Generate a scene with points.
+   */
+  protected void createPointScene(int numPoints) {
+    runLater(() -> {
+
+      // Clear scene graph
+      rootNode.detachAllChildren();
+
+      // Generate test data
+      this.points = makeRandomPoints(numPoints);
+
+      // Setup nearest neighbor search
+      KDTreeNode<Geometry> kdTreeRootNode = makeKdTree(points);
+      this.nearestNeighborSearch = new NearestNeighborSearch(kdTreeRootNode, points);
+
+      // Draw hyperplanes (do not call with more than 100 data points)
+      addHyperplanesToSceneGraph(kdTreeRootNode);
+
+      // Draw a point which moves thru the scene
+      addMovingPointToSceneGraph();
+    });
+  }
+
+  /**
+   * Generate a KD tree - your task
+   */
+  protected KDTreeNode<Geometry> makeKdTree(List<KDTreeData<Geometry>> points) {
+    // TODO
+    return null;
   }
 }

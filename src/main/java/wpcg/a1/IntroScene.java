@@ -19,9 +19,11 @@ import wpcg.base.Scene;
 import wpcg.base.animatedmesh.AnimatedMesh;
 import wpcg.base.animatedmesh.AnimationControllerPath;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This introduction scene contains the content of the first exercise: a knight
@@ -41,11 +43,6 @@ public class IntroScene extends Scene {
   private Node rootNode;
 
   /**
-   * This node contains the knight.
-   */
-  private Node knightNode;
-
-  /**
    * A list of all animated entities
    */
   protected List<AnimatedMesh> animatedMeshList;
@@ -53,7 +50,6 @@ public class IntroScene extends Scene {
   public IntroScene() {
     assetManager = null;
     rootNode = null;
-    knightNode = null;
     animatedMeshList = new ArrayList<>();
   }
 
@@ -65,19 +61,8 @@ public class IntroScene extends Scene {
     cameraController.setup(new Vector3f(-10, 10, -10),
             new Vector3f(0, 0, 0), new Vector3f(0, 1, 0));
 
-    // Load animated knight
-    knightNode = loadCharacter(assetManager, rootNode,
-            "Models/knight.gltf");
-    knightNode.setLocalScale(0.01f);
-    AnimationControllerPath knightAnimationController =
-            new AnimationControllerPath(Arrays.asList(
-            new Vector3f(6, 0, -6),
-            new Vector3f(6, 0, -3.5f),
-            new Vector3f(-3.5f, 0, 6),
-            new Vector3f(-6f, 0, 6f),
-            new Vector3f(-6f, 0, -6f)), 1.2f);
-    animatedMeshList.add(new AnimatedMesh(knightNode,
-            knightAnimationController));
+    // Add one knight
+    addKnight();
 
     // Add a square to the scene graph
     createGround();
@@ -93,6 +78,41 @@ public class IntroScene extends Scene {
 
   @Override
   public void render() {
+  }
+
+  @Override
+  public String getTitle() {
+    return "My 1st mesh";
+  }
+
+  @Override
+  public JPanel getUI() {
+    JPanel introUi = new JPanel();
+    JButton buttonAddKnight = new JButton("Add knight");
+    buttonAddKnight.addActionListener(e -> addKnight());
+    introUi.add(buttonAddKnight);
+    return introUi;
+  }
+
+  /**
+   * Add an additional Knight into the scene. The operation changes the scene graph, therefore it has to be scheduled
+   * to be run by the JME thread.
+   */
+  protected void addKnight() {
+    runLater(() -> {
+      Node knightNode = loadCharacter(assetManager, rootNode,
+              "Models/knight.gltf");
+      knightNode.setLocalScale(0.01f);
+      AnimationControllerPath knightAnimationController =
+              new AnimationControllerPath(Arrays.asList(
+                      new Vector3f(6, 0, -6),
+                      new Vector3f(6, 0, -3.5f),
+                      new Vector3f(-3.5f, 0, 6),
+                      new Vector3f(-6f, 0, 6f),
+                      new Vector3f(-6f, 0, -6f)), 1.2f);
+      animatedMeshList.add(new AnimatedMesh(knightNode,
+              knightAnimationController));
+    });
   }
 
   /**
@@ -113,7 +133,10 @@ public class IntroScene extends Scene {
     quadGeometry.setShadowMode(RenderQueue.ShadowMode.Receive);
   }
 
-  protected Node getKnightNode() {
-    return knightNode;
+  /**
+   * Return any of the knights.
+   */
+  protected Optional<Node> getAnyKnightNode() {
+    return animatedMeshList.stream().map(a -> a.getNode()).findAny();
   }
 }

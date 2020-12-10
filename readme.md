@@ -8,16 +8,16 @@ IntelliJ Import -> Gradle project
 
 ### Main Application (used for all exercises) 
 
-* `wpcg.ComputergraphicsApplication`
+* `wpcg.CG3D`
 * for each exercise:
     * create Scene = class implementing interface `wpcg.base.scene`
-* set scene in `wpcg.ComputergraphicsApplication.main()`
+* set scene in `wpcg.CG3D.main()`
 * Camera
     * Rotate: left mouse button press + move
     * Zoom: Mouse wheel oder middle mouse button + move
 
 ### 2D Main Application: 
 
-* `wpcg.ComputergraphicsApplication2D`
+* `wpcg.CG2D`
 * with example content `wpcg.base.canvas2d.Canvas2D` 
             

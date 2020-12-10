@@ -14,10 +14,23 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This scene class is used to represent the scene conent.
  */
 public abstract class Scene {
+
+  /**
+   * This list of tasks is scheduled to be invoked by the JME thread.
+   */
+  private List<Runnable> runLaterTasks;
+
+  public Scene() {
+    runLaterTasks = new ArrayList<>();
+  }
 
   /**
    * The init method is called once at the beginning of the runtime.
@@ -64,5 +77,29 @@ public abstract class Scene {
     node.setShadowMode(RenderQueue.ShadowMode.Cast);
     rootNode.attachChild(node);
     return node;
+  }
+
+  /**
+   * Return the (descriptive) title of the scene.
+   */
+  public abstract String getTitle();
+
+  /**
+   * Returns the user interface for the scene
+   *
+   * @return null, if the scene has no user interface
+   */
+  public abstract JPanel getUI();
+
+  /**
+   * Enqueue a task to the list which will be processed when the jMonkey Thread is active.
+   */
+  protected void runLater(Runnable task) {
+    runLaterTasks.add(task);
+  }
+
+  public synchronized void invokeRunlaterTasks() {
+    runLaterTasks.forEach(task -> task.run());
+    runLaterTasks.clear();
   }
 }

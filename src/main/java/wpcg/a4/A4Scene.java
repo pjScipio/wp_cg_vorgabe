@@ -20,6 +20,7 @@ import wpcg.base.animatedmesh.AnimationControllerPath;
 import wpcg.base.mesh.ObjReader;
 import wpcg.base.mesh.TriangleMesh;
 
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -129,6 +130,16 @@ public class A4Scene extends Scene {
   public void setupLights(AssetManager assetManager, Node rootNode,
                           ViewPort viewPort) {
     super.setupLights(assetManager, rootNode, viewPort);
+  }
+
+  @Override
+  public String getTitle() {
+    return "Light & Shadow";
+  }
+
+  @Override
+  public JPanel getUI() {
+    return null;
   }
 
   /**

@@ -14,9 +14,9 @@ import java.awt.*;
 /**
  * Lecture support application for 2D scenes
  */
-public class ComputergraphicsApplication2D extends JFrame {
+public class CG2D extends JFrame {
 
-  public ComputergraphicsApplication2D() {
+  public CG2D() {
 
     // Set the 2D canvas here
     Canvas2D curveCanvas2D = new SimpleExampleCanvas2D(600, 600);
@@ -32,6 +32,6 @@ public class ComputergraphicsApplication2D extends JFrame {
   }
 
   public static void main(String[] args) {
-    new ComputergraphicsApplication2D();
+    new CG2D();
   }
 }
