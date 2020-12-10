@@ -3,15 +3,7 @@ package wpcg;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeCanvasContext;
 import wpcg.a1.IntroScene;
-import wpcg.a5.A5Scene;
 import wpcg.base.Scene;
-import wpcg.solution.a1.A1SceneSolution;
-import wpcg.solution.a2.A2SceneSolution;
-import wpcg.solution.a3.A3SceneSolution;
-import wpcg.solution.a4.A4SceneSolution;
-import wpcg.solution.a5.A5SceneSolution;
-import wpcg.solution.a6.A6SceneSolution;
-import wpcg.solution.a7.A7SceneSolution;
 import wpcg.ui.ComputergraphicsJMEApp;
 import wpcg.ui.ComputergraphicsFrame;
 
@@ -49,7 +41,7 @@ public class CG3D {
 
   public static void main(String[] args) {
     // Change scene object here
-    Scene scene = new A7SceneSolution();
+    Scene scene = new IntroScene();
 
     // no change here
     Logger.getLogger("com.jme3").setLevel(Level.SEVERE);

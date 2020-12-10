@@ -14,7 +14,7 @@ IntelliJ Import -> Gradle project
 * set scene in `wpcg.CG3D.main()`
 * Camera
     * Rotate: left mouse button press + move
-    * Zoom: Mouse wheel oder middle mouse button + move
+    * Zoom: right mouse button + move
 
 ### 2D Main Application: 
 
