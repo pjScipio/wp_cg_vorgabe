@@ -1,6 +1,8 @@
 package wpcg.ui;
 
 import com.jme3.math.Vector2f;
+import com.jme3.system.JmeCanvasContext;
+import com.jme3.system.awt.AwtPanelsContext;
 import wpcg.base.Scene;
 
 import javax.swing.*;
@@ -47,7 +49,7 @@ public class ComputergraphicsFrame extends JFrame implements MouseListener, Mous
   private static final float WINDOW_WIDTH_3DVIEW_SHARE = 0.7f;
 
 
-  public ComputergraphicsFrame(Canvas jmeCanvas, CameraControlled cameraControlled, Scene scene) {
+  public ComputergraphicsFrame(JmeCanvasContext jmeCanvasContext, CameraControlled cameraControlled, Scene scene) {
     super(scene.getTitle());
     this.cameraControlledJmeFrame = cameraControlled;
     this.scene = scene;
@@ -56,17 +58,26 @@ public class ComputergraphicsFrame extends JFrame implements MouseListener, Mous
     this.mouseMiddlePressed = false;
 
     JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+    mainPanel.setLayout(new BorderLayout());
     getContentPane().add(mainPanel);
 
     // JME
     Dimension dim = new Dimension((int) (WINDOW_WIDTH * WINDOW_WIDTH_3DVIEW_SHARE), WINDOW_HEIGHT);
+    Canvas jmeCanvas = jmeCanvasContext.getCanvas();
     jmeCanvas.setPreferredSize(dim);
+
     JPanel jmePanel = new JPanel();
-    jmePanel.add(jmeCanvas);
+    jmePanel.setLayout(new BorderLayout());
+    jmePanel.add(jmeCanvas, BorderLayout.CENTER);
     mainPanel.add(jmePanel);
+
+
+    jmeCanvas.setMinimumSize(new Dimension(500,500));
+
     jmeCanvas.addMouseListener(this);
     jmeCanvas.addMouseMotionListener(this);
+    jmeCanvas.requestFocus();
+    jmeCanvas.requestFocusInWindow();
 
     // Settings
     JPanel uiPanel = new JPanel();
@@ -79,10 +90,11 @@ public class ComputergraphicsFrame extends JFrame implements MouseListener, Mous
       uiPanel.add(new JLabel("no UI for scene"));
     }
 
-    mainPanel.add(uiPanel);
+    mainPanel.add(uiPanel, BorderLayout.EAST);
 
-    setPreferredSize(new Dimension(1000, 640));
-    setSize(800, 480);
+    //setPreferredSize(new Dimension(700, 500));
+    //setSize(700, 500);
+    //jmeCanvas.setSize(700,500);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setVisible(true);
@@ -90,6 +102,7 @@ public class ComputergraphicsFrame extends JFrame implements MouseListener, Mous
 
   @Override
   public void mouseClicked(MouseEvent e) {
+    System.out.println("Click");
   }
 
   @Override
