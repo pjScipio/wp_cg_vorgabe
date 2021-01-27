@@ -27,8 +27,8 @@ public class CG3D {
    */
   public static void createJmeCanvas() {
     AppSettings settings = new AppSettings(true);
-    settings.setWidth(500);
-    settings.setHeight(500);
+    settings.setWidth(ComputergraphicsFrame.JME_CANVAS_WIDTH);
+    settings.setHeight(ComputergraphicsFrame.WINDOW_HEIGHT);
     app = new ComputergraphicsJMEApp(scene);
     app.setSettings(settings);
     app.setShowSettings(false);
@@ -36,7 +36,6 @@ public class CG3D {
     app.setPauseOnLostFocus(false);
     jmeContext = (JmeCanvasContext) app.getContext();
     jmeContext.setSystemListener(app);
-    jmeContext.getCanvas().setPreferredSize(new Dimension(500, 500));
   }
 
   /**
@@ -46,8 +45,7 @@ public class CG3D {
     app.startCanvas();
     app.enqueue(() -> {
       if (app instanceof SimpleApplication) {
-        SimpleApplication simpleApplication = (SimpleApplication) app;
-        simpleApplication.getFlyByCamera().setDragToRotate(true);
+        app.getFlyByCamera().setDragToRotate(true);
       }
     });
   }

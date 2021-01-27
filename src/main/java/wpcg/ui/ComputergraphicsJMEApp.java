@@ -21,7 +21,7 @@ import wpcg.base.Scene;
  * This is the main application which is used for all exercises. Only adjust the
  * scene in the main method.
  */
-public class ComputergraphicsJMEApp extends SimpleApplication implements CameraControlled {
+public class ComputergraphicsJMEApp extends SimpleApplication {
 
   public static final String MOUSE_MOVE_RIGHT = "MOUSE_MOVE_RIGHT";
   public static final String MOUSE_MOVE_LEFT = "MOUSE_MOVE_LEFT";
@@ -69,8 +69,7 @@ public class ComputergraphicsJMEApp extends SimpleApplication implements CameraC
     cam.setLocation(new Vector3f(-5, 5, 5));
     stateManager.detach(stateManager.getState(FlyCamAppState.class));
     cameraController = new CameraController(cam);
-    cameraController.lookAt(new Vector3f(0, 1, 0),
-            new Vector3f(0, 1, 0));
+    cameraController.lookAt(new Vector3f(0, 1, 0), new Vector3f(0, 1, 0));
     viewPort.setBackgroundColor(ColorRGBA.LightGray);
     inputManager.addMapping(MOUSE_MOVE_RIGHT, new MouseAxisTrigger(MouseInput.AXIS_X, true));
     inputManager.addMapping(MOUSE_MOVE_LEFT, new MouseAxisTrigger(MouseInput.AXIS_X, false));
@@ -78,8 +77,8 @@ public class ComputergraphicsJMEApp extends SimpleApplication implements CameraC
     inputManager.addMapping(MOUSE_MOVE_DOWN, new MouseAxisTrigger(MouseInput.AXIS_Y, false));
     inputManager.addMapping(MOUSE_LEFT_BUTTON, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
     inputManager.addMapping(MOUSE_RIGHT_BUTTON, new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
-    inputManager.addListener(analogListener, new String[]{MOUSE_MOVE_RIGHT, MOUSE_MOVE_LEFT, "MOUSE_MOVE_UP",
-            MOUSE_MOVE_DOWN});
+    inputManager.addListener(analogListener, new String[]{
+            MOUSE_MOVE_RIGHT, MOUSE_MOVE_LEFT, MOUSE_MOVE_UP, MOUSE_MOVE_DOWN});
     inputManager.addListener(actionListener, new String[]{MOUSE_LEFT_BUTTON, MOUSE_RIGHT_BUTTON});
   }
 
@@ -100,9 +99,7 @@ public class ComputergraphicsJMEApp extends SimpleApplication implements CameraC
   /**
    * This listener is used for continuous input events.
    */
-  private AnalogListener analogListener = new AnalogListener() {
-    @Override
-    public void onAnalog(String name, float value, float tpf) {
+  private AnalogListener analogListener =(name, value, tpf) -> {
       float rotateFactor = 200.0f;
       float zoomFactor = 800.0f;
       switch (name) {
@@ -131,7 +128,6 @@ public class ComputergraphicsJMEApp extends SimpleApplication implements CameraC
           }
           break;
       }
-    }
   };
 
   @Override
@@ -145,17 +141,14 @@ public class ComputergraphicsJMEApp extends SimpleApplication implements CameraC
     scene.render();
   }
 
-  @Override
   public void zoom(float delta) {
     cameraController.zoom(delta);
   }
 
-  @Override
   public void rotateHorizontal(float delta) {
     cameraController.rotateAroundUp(delta);
   }
 
-  @Override
   public void rotateVertical(float delta) {
     cameraController.rotateAroundLeft(delta);
   }
