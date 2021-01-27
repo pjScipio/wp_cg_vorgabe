@@ -3,17 +3,13 @@ package wpcg;
 import com.jme3.app.SimpleApplication;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeCanvasContext;
-import com.jme3.system.JmeContext;
-import com.jme3.system.awt.AwtPanelsContext;
 import wpcg.a1.IntroScene;
 import wpcg.base.Scene;
-import wpcg.ui.ComputergraphicsJMEApp;
 import wpcg.ui.ComputergraphicsFrame;
+import wpcg.ui.ComputergraphicsJMEApp;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.SimpleTimeZone;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +22,10 @@ public class CG3D {
   private static Scene scene;
   private static JmeCanvasContext jmeContext;
 
-  public static void createJmeCanvas(){
+  /**
+   * Create a context for a JME SimpleApplication.
+   */
+  public static void createJmeCanvas() {
     AppSettings settings = new AppSettings(true);
     settings.setWidth(500);
     settings.setHeight(500);
@@ -34,40 +33,39 @@ public class CG3D {
     app.setSettings(settings);
     app.setShowSettings(false);
     app.createCanvas();
-    //app.setPauseOnLostFocus(false);
-    jmeContext= (JmeCanvasContext) app.getContext();
+    app.setPauseOnLostFocus(false);
+    jmeContext = (JmeCanvasContext) app.getContext();
     jmeContext.setSystemListener(app);
     jmeContext.getCanvas().setPreferredSize(new Dimension(500, 500));
-
   }
 
-  public static void startApp(){
-   app.startCanvas();
-   app.enqueue(() -> {
-     if ( app instanceof SimpleApplication){
-       SimpleApplication simpleApplication = (SimpleApplication) app;
-       simpleApplication.getFlyByCamera().setDragToRotate(true);
-     }
-   });
+  /**
+   * Start the JME application.
+   */
+  public static void startApp() {
+    app.startCanvas();
+    app.enqueue(() -> {
+      if (app instanceof SimpleApplication) {
+        SimpleApplication simpleApplication = (SimpleApplication) app;
+        simpleApplication.getFlyByCamera().setDragToRotate(true);
+      }
+    });
   }
 
   public static void main(String[] args) {
     // Change scene object here
     scene = new IntroScene();
-    createJmeCanvas();
 
+    createJmeCanvas();
     try {
       Thread.sleep(500);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-
-    SwingUtilities.invokeLater( () -> {
-              ComputergraphicsFrame cgFrame = new ComputergraphicsFrame(jmeContext, app, scene);
-              startApp();
-            });
-
-    // no change here
+    SwingUtilities.invokeLater(() -> {
+      ComputergraphicsFrame cgFrame = new ComputergraphicsFrame(jmeContext, scene);
+      startApp();
+    });
     Logger.getLogger("com.jme3").setLevel(Level.SEVERE);
   }
 }

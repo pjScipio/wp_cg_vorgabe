@@ -104,7 +104,7 @@ public class A5Scene extends Scene {
   /**
    * Number of generated data points.
    */
-  private static int NUM_POINTS = 10;
+  private static int NUM_POINTS = 100;
 
   public A5Scene() {
     this.cameraController = null;
