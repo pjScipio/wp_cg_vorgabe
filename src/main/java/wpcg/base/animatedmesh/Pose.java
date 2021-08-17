@@ -1,3 +1,8 @@
+/**
+ * Diese Datei ist Teil des Vorgabeframeworks zur Lehrveranstaltung Einführung in die Computergrafik
+ * an der Hochschule für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ */
+
 package wpcg.base.animatedmesh;
 
 import com.jme3.math.Matrix3f;

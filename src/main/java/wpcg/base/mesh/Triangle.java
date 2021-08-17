@@ -1,13 +1,13 @@
 /**
- * Diese Datei ist Teil der Vorgabe zur Lehrveranstaltung Einführung in die Computergrafik der Hochschule
- * für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
+ * Diese Datei ist Teil des Vorgabeframeworks zur Lehrveranstaltung Einführung in die Computergrafik
+ * an der Hochschule für Angewandte Wissenschaften Hamburg von Prof. Philipp Jenke (Informatik)
  */
 
 package wpcg.base.mesh;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import wpcg.base.Logger;
+import wpcg.base.ui.Logger;
 
 /**
  * Representation of a triangle consisting of three indices. The indices
