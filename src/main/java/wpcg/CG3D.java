@@ -47,6 +47,7 @@ public class CG3D {
 
     // Initialize jMonkey
     AppSettings settings = new AppSettings(true);
+    settings.setAudioRenderer(null);
     settings.setWidth(JME_CANVAS_WIDTH);
     settings.setHeight(JME_CANVAS_HEIGHT);
     settings.setCustomRenderer(AwtPanelsContext.class);
