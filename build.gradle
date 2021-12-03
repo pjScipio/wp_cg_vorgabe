@@ -3,7 +3,6 @@ apply plugin: 'application'
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 def jme3 = [v: '3.4.0-stable', g: 'org.jmonkeyengine']

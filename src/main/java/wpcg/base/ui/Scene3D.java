@@ -64,12 +64,6 @@ public abstract class Scene3D extends Observable {
     sun.setDirection(new Vector3f(0.5f, -1, -0.5f));
     rootNode.addLight(sun);
 
-    // Shadows
-    final int SHADOWMAP_SIZE = 512;
-    DirectionalLightShadowRenderer plsr = new DirectionalLightShadowRenderer(assetManager, SHADOWMAP_SIZE, 1);
-    plsr.setLight(sun);
-    viewPort.addProcessor(plsr);
-
     PointLight pointLight = new PointLight();
     pointLight.setPosition(new Vector3f(0, 1, 0));
     pointLight.setColor(ColorRGBA.Yellow);
