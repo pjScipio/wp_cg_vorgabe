@@ -9,7 +9,7 @@ import com.jme3.bounding.BoundingBox;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import wpcg.base.ui.Logger;
+import misc.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

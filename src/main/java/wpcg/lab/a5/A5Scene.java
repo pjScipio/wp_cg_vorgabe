@@ -19,8 +19,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.shader.VarType;
-import wpcg.base.ui.AbstractCameraController;
-import wpcg.base.ui.Scene3D;
+import ui.AbstractCameraController;
+import ui.Scene3D;
 import wpcg.lab.a5.kdtree.KDTreeData;
 import wpcg.lab.a5.kdtree.KDTreeNode;
 import wpcg.lab.a5.kdtree.NearestNeighborSearch;
@@ -240,12 +240,13 @@ public class A5Scene extends Scene3D {
   @Override
   public void render() {
     movingPointAngle += (Math.random() - 0.5f) * 0.2f;
-    cameraController.lookAt(movingPoint.getLocalTranslation(), Vector3f.UNIT_Y);
+    if ( movingPoint != null ) {
+      cameraController.lookAt(movingPoint.getLocalTranslation(), Vector3f.UNIT_Y);
+    }
   }
 
   @Override
-  public void setupLights(AssetManager assetManager, Node rootNode,
-                          ViewPort viewPort) {
+  public void setupLights(Node rootNode) {
     // Scene
     PointLight light1 = new PointLight(new Vector3f(10, 10, 10));
     light1.setColor(new ColorRGBA(1f, 1f, 1f, 1));
@@ -256,18 +257,6 @@ public class A5Scene extends Scene3D {
   @Override
   public String getTitle() {
     return "KD tree";
-  }
-
-  @Override
-  public JPanel getUI() {
-    JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-    JTextField textFieldNumPoints = new JTextField("100");
-    mainPanel.add(textFieldNumPoints);
-    JButton buttonNumPoints = new JButton("Generate");
-    buttonNumPoints.addActionListener(e -> createPointScene(Integer.parseInt(textFieldNumPoints.getText())));
-    mainPanel.add(buttonNumPoints);
-    return mainPanel;
   }
 
   /**
@@ -301,4 +290,18 @@ public class A5Scene extends Scene3D {
     // TODO
     return null;
   }
+
+  /*
+  @Override
+  public JPanel getUI() {
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+    JTextField textFieldNumPoints = new JTextField("100");
+    mainPanel.add(textFieldNumPoints);
+    JButton buttonNumPoints = new JButton("Generate");
+    buttonNumPoints.addActionListener(e -> createPointScene(Integer.parseInt(textFieldNumPoints.getText())));
+    mainPanel.add(buttonNumPoints);
+    return mainPanel;
+  }
+  */
 }

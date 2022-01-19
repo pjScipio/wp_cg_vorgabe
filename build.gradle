@@ -5,16 +5,43 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs 'cg_math/src/main/java'
+            srcDirs 'cg_ui/src/main/java'
+        }
+        resources {
+            srcDir 'cg_ui/src/main/resources'
+        }
+    }
+
+    test {
+        java {
+            srcDirs 'cg_math/src/test/java'
+            srcDirs 'cg_ui/src/test/java'
+        }
+    }
+}
+
 def jme3 = [v: '3.4.0-stable', g: 'org.jmonkeyengine']
 
 dependencies {
+    // jMonkey
     implementation "${jme3.g}:jme3-core:${jme3.v}"
     implementation "${jme3.g}:jme3-effects:${jme3.v}"
     implementation "${jme3.g}:jme3-plugins:${jme3.v}"
     implementation "${jme3.g}:jme3-desktop:${jme3.v}"
     implementation "${jme3.g}:jme3-lwjgl:${jme3.v}"
+
+    // Utils
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.json:json:20190722'
-    testImplementation('org.junit.jupiter:junit-jupiter:5.7.2')
+    implementation 'org.jetbrains:annotations:22.0.0'
+    implementation 'com.google.guava:guava:31.0.1-jre'
+
+    // Unit-Testing
+    testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
 }
 
 test {

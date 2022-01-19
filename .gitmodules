@@ -1,0 +1,6 @@
+[submodule "cg_math"]
+	path = cg_math
+	url = https://git.haw-hamburg.de/abo781/cg_math.git
+[submodule "cg_ui"]
+	path = cg_ui
+	url = https://git.haw-hamburg.de/abo781/cg_ui.git

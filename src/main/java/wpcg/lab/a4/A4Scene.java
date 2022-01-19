@@ -10,17 +10,16 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
-import wpcg.base.ui.AbstractCameraController;
-import wpcg.base.ui.Scene3D;
-import wpcg.lab.a4.level.Cell;
-import wpcg.lab.a4.level.Direction;
-import wpcg.lab.a4.level.Level;
+import ui.AbstractCameraController;
+import ui.Scene3D;
 import wpcg.base.animatedmesh.AnimatedMesh;
 import wpcg.base.animatedmesh.AnimationControllerPath;
 import wpcg.base.mesh.ObjReader;
 import wpcg.base.mesh.TriangleMesh;
+import wpcg.lab.a4.level.Cell;
+import wpcg.lab.a4.level.Direction;
+import wpcg.lab.a4.level.Level;
 
-import javax.swing.*;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -126,19 +125,13 @@ public class A4Scene extends Scene3D {
   }
 
   @Override
-  public void setupLights(AssetManager assetManager, Node rootNode,
-                          ViewPort viewPort) {
-    super.setupLights(assetManager, rootNode, viewPort);
+  public void setupLights( Node rootNode) {
+    super.setupLights(rootNode);
   }
 
   @Override
   public String getTitle() {
     return "Light & Shadow";
-  }
-
-  @Override
-  public JPanel getUI() {
-    return null;
   }
 
   /**

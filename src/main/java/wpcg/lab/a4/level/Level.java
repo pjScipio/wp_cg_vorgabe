@@ -7,10 +7,10 @@ package wpcg.lab.a4.level;
 
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import misc.Logger;
+import misc.Observable;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import wpcg.base.Observable;
-import wpcg.base.ui.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;

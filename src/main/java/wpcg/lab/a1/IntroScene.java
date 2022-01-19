@@ -14,12 +14,11 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.shader.VarType;
+import ui.AbstractCameraController;
+import ui.Scene3D;
 import wpcg.base.animatedmesh.AnimatedMesh;
 import wpcg.base.animatedmesh.AnimationControllerPath;
-import wpcg.base.ui.AbstractCameraController;
-import wpcg.base.ui.Scene3D;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,20 +77,12 @@ public class IntroScene extends Scene3D {
 
   @Override
   public void render() {
+
   }
 
   @Override
   public String getTitle() {
     return "My 1st mesh";
-  }
-
-  @Override
-  public JPanel getUI() {
-    JPanel introUi = new JPanel();
-    JButton buttonAddKnight = new JButton("Add knight");
-    buttonAddKnight.addActionListener(e -> addKnight());
-    introUi.add(buttonAddKnight);
-    return introUi;
   }
 
   /**
@@ -139,4 +130,15 @@ public class IntroScene extends Scene3D {
   protected Optional<Node> getAnyKnightNode() {
     return animatedMeshList.stream().map(a -> a.getNode()).findAny();
   }
+
+/*
+  @Override
+  public JPanel getUI() {
+    JPanel introUi = new JPanel();
+    JButton buttonAddKnight = new JButton("Add knight");
+    buttonAddKnight.addActionListener(e -> addKnight());
+    introUi.add(buttonAddKnight);
+    return introUi;
+  }
+  */
 }
