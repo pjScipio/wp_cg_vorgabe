@@ -19,6 +19,7 @@ import ui.Scene3D;
 import wpcg.base.animatedmesh.AnimatedMesh;
 import wpcg.base.animatedmesh.AnimationControllerPath;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,14 +132,13 @@ public class IntroScene extends Scene3D {
     return animatedMeshList.stream().map(a -> a.getNode()).findAny();
   }
 
-/*
+
   @Override
-  public JPanel getUI() {
+  public JPanel getUserInterface() {
     JPanel introUi = new JPanel();
     JButton buttonAddKnight = new JButton("Add knight");
     buttonAddKnight.addActionListener(e -> addKnight());
     introUi.add(buttonAddKnight);
     return introUi;
   }
-  */
 }

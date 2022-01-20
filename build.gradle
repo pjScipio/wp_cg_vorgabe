@@ -27,6 +27,7 @@ sourceSets {
 def jme3 = [v: '3.4.0-stable', g: 'org.jmonkeyengine']
 
 dependencies {
+
     // jMonkey
     implementation "${jme3.g}:jme3-core:${jme3.v}"
     implementation "${jme3.g}:jme3-effects:${jme3.v}"

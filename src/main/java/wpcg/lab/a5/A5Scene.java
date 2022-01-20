@@ -13,7 +13,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
@@ -240,7 +239,7 @@ public class A5Scene extends Scene3D {
   @Override
   public void render() {
     movingPointAngle += (Math.random() - 0.5f) * 0.2f;
-    if ( movingPoint != null ) {
+    if (movingPoint != null) {
       cameraController.lookAt(movingPoint.getLocalTranslation(), Vector3f.UNIT_Y);
     }
   }
@@ -256,7 +255,7 @@ public class A5Scene extends Scene3D {
 
   @Override
   public String getTitle() {
-    return "KD tree";
+    return "KD Tree";
   }
 
   /**
@@ -291,9 +290,8 @@ public class A5Scene extends Scene3D {
     return null;
   }
 
-  /*
   @Override
-  public JPanel getUI() {
+  public JPanel getUserInterface() {
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     JTextField textFieldNumPoints = new JTextField("100");
@@ -303,5 +301,4 @@ public class A5Scene extends Scene3D {
     mainPanel.add(buttonNumPoints);
     return mainPanel;
   }
-  */
 }
