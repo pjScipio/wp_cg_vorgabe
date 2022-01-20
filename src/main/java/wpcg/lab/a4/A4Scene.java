@@ -8,6 +8,7 @@ package wpcg.lab.a4;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import ui.AbstractCameraController;
 import ui.Scene3D;
@@ -121,11 +122,6 @@ public class A4Scene extends Scene3D {
 
   @Override
   public void render() {
-  }
-
-  @Override
-  public void setupLights( Node rootNode) {
-    super.setupLights(rootNode);
   }
 
   @Override

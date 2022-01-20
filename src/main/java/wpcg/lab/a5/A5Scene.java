@@ -13,6 +13,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
@@ -245,7 +246,7 @@ public class A5Scene extends Scene3D {
   }
 
   @Override
-  public void setupLights(Node rootNode) {
+  public void setupLights(Node rootNode, ViewPort viewPort) {
     // Scene
     PointLight light1 = new PointLight(new Vector3f(10, 10, 10));
     light1.setColor(new ColorRGBA(1f, 1f, 1f, 1));
