@@ -1,33 +1,23 @@
 # Base Framework for "Einführung in die Computergrafik"
 
-## Projekt importieren
+## Prerequisites
 
-File - Open - Verzeichnis mit der Datei _buid.gradle_ auswählen
-* als Gradle-Projekt
+* JDK 14
 
-## Einstellungen
+## Build
 
-* Gradle-Einstellungen (Einstellungen - Preferences - Build,Execution,Deployment - Build Tools - Gradle)
-  * Build and run using: Gradle
-  * Run tests: Gradle
-  * Use gradle from: 'gradle-wrapper-properties' file
-  * Gradle JVM: 17
-    * Gradle Wrapper 7.2 oder neuer notwendig, IntelliJ bietet bei Bedarf Update-Option an
-* Projekteinstellungen (Einstellungen -> Project Structure -> Project)
-  * SDK: 17
-  * Language Level: 17
+        gradle build
 
-### Main Application (used for all exercises)
+or
 
-* `wpcg.CG3D`
-* for each exercise:
-  * create Scene = class implementing interface `wpcg.base.scene`
-* set scene in `wpcg.CG3D.main()`
-* Camera
-  * Rotate: left mouse button press + move
-  * Zoom: right mouse button + move
+        ./gradlew build
 
-### 2D Main Application:
+# Dependencies
 
-* `wpcg.CG2D`
-* with example content `wpcg.base.canvas2d.Canvas2D` 
+* cg_math
+* cg_ui
+
+## Import
+
+* File - Open - select directory with file _buid.gradle_
+* as Gradle project
