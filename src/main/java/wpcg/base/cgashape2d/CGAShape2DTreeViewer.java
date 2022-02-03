@@ -1,3 +1,8 @@
+/**
+ * This file is part of the computer graphics project of the computer graphics group led by
+ * Prof. Dr. Philipp Jenke at the University of Applied Sciences (HAW) in Hamburg.
+ */
+
 package wpcg.base.cgashape2d;
 
 import misc.Observable;
@@ -10,7 +15,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 
 /**
- * A simple tree viewer to visualite a shape tree in a CGAShape grammar.
+ * A simple tree viewer to visualize a shape tree in a CGAShape grammar.
  */
 public class CGAShape2DTreeViewer extends JPanel implements Observer {
 

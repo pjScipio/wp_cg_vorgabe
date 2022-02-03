@@ -1,5 +1,9 @@
-package wpcg.base.cgashape2d.grammar;
+/**
+ * This file is part of the computer graphics project of the computer graphics group led by
+ * Prof. Dr. Philipp Jenke at the University of Applied Sciences (HAW) in Hamburg.
+ */
 
+package wpcg.base.cgashape2d.grammar;
 
 import wpcg.base.cgashape2d.Scope2D;
 import wpcg.base.cgashape2d.shapes.Line2D;

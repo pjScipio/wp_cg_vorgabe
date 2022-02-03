@@ -1,3 +1,8 @@
+/**
+ * This file is part of the computer graphics project of the computer graphics group led by
+ * Prof. Dr. Philipp Jenke at the University of Applied Sciences (HAW) in Hamburg.
+ */
+
 package wpcg.base.grammar;
 
 import base.Parameters;
@@ -62,7 +67,8 @@ public class GrammarParameters<T> extends Parameters {
    */
   public void readGrammarFromString(String grammarText) throws GrammarException {
     parser.parse(grammar, grammarText);
-    grammar.derive();
+    // Initial derivation
+    var result = grammar.derive();
     notifyAllObservers();
   }
 
