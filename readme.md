@@ -22,15 +22,14 @@ in all three subdirectories *cg_math* and *cg_ui*.
 
 ## Build
 
-Run in the *pcg*-directory:
+Open *wp_cg_vorgabe* in IntelliJ as Gradle project
+
+or
+
+Run in the *wp_cg_vorgabe*-directory:
 
     gradle build
 
 or
 
     ./gradlew build
-
-## Import
-
-* File - Open - select directory with file _buid.gradle_
-* as Gradle project

@@ -51,8 +51,10 @@ public class GrammarEditor<T> extends ParameterEditor {
     button.addActionListener(e -> {
       try {
         params.readGrammarFromString(grammarArea.getText());
+        statusBarMessage("Grammar successfully parsed and applied.");
       } catch (GrammarException ex) {
         Logger.getInstance().error("Grammar error: " + ex.getMessage());
+        statusBarMessage(ex.getMessage());
       }
     });
     add(button, BorderLayout.SOUTH);

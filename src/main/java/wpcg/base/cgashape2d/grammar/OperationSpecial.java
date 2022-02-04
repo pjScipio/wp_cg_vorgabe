@@ -27,13 +27,18 @@ public class OperationSpecial extends Operation {
 
   public OperationSpecial(String[] params, List<Symbol> succ) throws GrammarException {
     super(succ);
-    if (params == null || params.length != 1) {
+    if (params.length != 1) {
       throw new GrammarException("Invalid params in " + this + ": " + params);
+    }
+    if (params.length != 1) {
+      throw new GrammarException("Invalid params in " + this + ": " + Arrays.stream(params).reduce("", (p1, p2) -> p1 +
+              " " + p2));
     }
     try {
       type = SpecialShape2D.Type.valueOf(params[0].toUpperCase());
     } catch (Exception e) {
-      throw new GrammarException("Invalid params in " + this + ": " + params);
+      throw new GrammarException("Invalid params in " + this + ": " + Arrays.stream(params).reduce("", (p1, p2) -> p1 +
+              " " + p2));
     }
   }
 
@@ -60,6 +65,6 @@ public class OperationSpecial extends Operation {
 
   @Override
   protected String paramsToString() {
-    return type.toString();
+    return type != null ? type.toString() : "null";
   }
 }
