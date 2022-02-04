@@ -8,7 +8,7 @@ import wpcg.base.grammar.Symbol;
  */
 public class BuildingParameters extends GrammarParameters<Symbol> {
 
-  public BuildingParameters(BuilingGrammar grammar) {
+  public BuildingParameters(BuildingGrammar grammar) {
     super(grammar, new BuildingsParser());
   }
 }

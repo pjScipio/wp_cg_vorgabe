@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 /**
  * Representation of the building grammar.
  */
-public class BuilingGrammar extends Grammar<Symbol> {
+public class BuildingGrammar extends Grammar<Symbol> {
 
   private Map<Symbol, BuildingRule> ruleMap;
 
-  public BuilingGrammar() {
+  public BuildingGrammar() {
     Locale.setDefault(Locale.US);
     ruleMap = new HashMap<>();
   }

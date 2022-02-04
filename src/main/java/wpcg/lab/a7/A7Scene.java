@@ -7,8 +7,8 @@ import misc.Logger;
 import ui.AbstractCameraController;
 import ui.Scene3D;
 import wpcg.base.grammar.GrammarException;
+import wpcg.lab.a7.buildinggrammar.BuildingGrammar;
 import wpcg.lab.a7.buildinggrammar.BuildingParameters;
-import wpcg.lab.solution.a7.GrammarSolution;
 
 public class A7Scene extends Scene3D {
 
@@ -23,7 +23,7 @@ public class A7Scene extends Scene3D {
             new Vector3f(0, 1, 0));
 
     // Init grammar
-    GrammarSolution grammar = new GrammarSolution();
+    BuildingGrammar grammar = new BuildingGrammar();
     BuildingParameters params = new BuildingParameters(grammar);
     try {
       params.readGrammarFromFile("buildings/building.grammar");
