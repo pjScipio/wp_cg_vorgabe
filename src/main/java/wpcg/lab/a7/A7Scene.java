@@ -1,7 +1,12 @@
 package wpcg.lab.a7;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
+import com.jme3.light.PointLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import misc.Logger;
 import ui.AbstractCameraController;
@@ -45,5 +50,30 @@ public class A7Scene extends Scene3D {
   @Override
   public String getTitle() {
     return "Building Grammar";
+  }
+
+  /**
+   * Lighting can be customized here
+   */
+  @Override
+  public void setupLights(Node rootNode, ViewPort viewPort) {
+    // Sun
+    DirectionalLight sun = new DirectionalLight();
+    sun.setColor(new ColorRGBA(1, 1, 1, 1));
+    sun.setDirection(new Vector3f(0.25f, -1, 0.1f));
+    rootNode.addLight(sun);
+
+    // Point light source in the center of the scene.
+    PointLight light = new PointLight();
+    light.setPosition(new Vector3f(0,1,0));
+    light.setRadius(0);
+    light.setColor(ColorRGBA.White.mult(2));
+    rootNode.addLight(light);
+
+    // Some light everywhere
+    AmbientLight ambientLight = new AmbientLight();
+    ColorRGBA brightAmbientColor = ColorRGBA.White;
+    ambientLight.setColor(brightAmbientColor);
+    rootNode.addLight(ambientLight);
   }
 }

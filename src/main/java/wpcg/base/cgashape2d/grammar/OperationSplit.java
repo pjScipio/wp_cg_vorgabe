@@ -6,6 +6,7 @@
 package wpcg.base.cgashape2d.grammar;
 
 import com.jme3.math.Vector2f;
+import math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 import wpcg.base.cgashape2d.Scope2D;
 import wpcg.base.cgashape2d.shapes.Line2D;
@@ -42,12 +43,12 @@ public class OperationSplit extends Operation {
 
   public OperationSplit(String[] params, List<Symbol> succ) throws GrammarException {
     super(succ);
+    values = new ArrayList<>();
     if (params == null || params.length < 2) {
       throw new GrammarException("Invalid params in " + this + ": " + params);
     }
     try {
       splitDir = SplitDir.valueOf(params[0].toUpperCase());
-      values = new ArrayList<>();
       for (int i = 1; i < params.length; i++) {
         values.add(params[i]);
       }
@@ -72,7 +73,7 @@ public class OperationSplit extends Operation {
 
   @Override
   protected String paramsToString() {
-    String res = splitDir.toString();
+    String res = splitDir != null ? splitDir.toString() : "null";
     for (String v : values) {
       res += "," + v;
     }
@@ -147,7 +148,7 @@ public class OperationSplit extends Operation {
         }
       }
 
-      if (sumAbsolute > length) {
+      if (sumAbsolute > length + MathHelper.TOLERANCE) {
         throw new GrammarException("createSubvalues(): sum of absolute values is larger than length");
       }
 

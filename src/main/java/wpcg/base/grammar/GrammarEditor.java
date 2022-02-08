@@ -32,7 +32,7 @@ public class GrammarEditor<T> extends ParameterEditor {
 
     // File selection
     JComboBox<String> comboBoxFilename = new JComboBox<>();
-    List<String> grammarFilenames = AssetPath.getInstance().getFilesInDir(dir, "misc/grammar");
+    List<String> grammarFilenames = AssetPath.getInstance().getFilesInDir(dir, "grammar");
     for (String filename : grammarFilenames) {
       comboBoxFilename.addItem(filename);
     }

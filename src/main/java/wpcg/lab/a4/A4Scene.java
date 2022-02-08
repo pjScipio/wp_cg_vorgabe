@@ -6,6 +6,10 @@
 package wpcg.lab.a4;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
+import com.jme3.light.PointLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
@@ -86,7 +90,7 @@ public class A4Scene extends Scene3D {
 
     // Setup animated knight mesh.
     Node knightNode = loadCharacter(assetManager, rootNode,
-            "Models/knight.gltf");
+            "models/knight.gltf");
     knightNode.setLocalScale(0.003f);
     AnimationControllerPath knightAnimationController =
             new AnimationControllerPath(getWayPoints(), 0.5f);
@@ -95,8 +99,8 @@ public class A4Scene extends Scene3D {
     // Render cells
     for (Iterator<Cell> it = level.getCellIterator(); it.hasNext(); ) {
       Cell cell = it.next();
-      addCellGeometry(assetManager, "Textures/stone.png",
-              "Textures/stone_normalmap.png", cell);
+      addCellGeometry(assetManager, "textures/stone.png",
+              "textures/stone_normalmap.png", cell);
 
       // Render walls
       for (Direction dir : Direction.values()) {
@@ -107,8 +111,8 @@ public class A4Scene extends Scene3D {
             // Create wall only once.
             continue;
           }
-          addWallGeometry(assetManager, "Textures/stone.png",
-                  "Textures/stone_normalmap.png",
+          addWallGeometry(assetManager, "textures/stone.png",
+                  "textures/stone_normalmap.png",
                   cell, dir);
         }
       }
@@ -142,7 +146,7 @@ public class A4Scene extends Scene3D {
   protected void addCellGeometry(AssetManager assetManager,
                                  String textureFilename,
                                  String normalMapFilename, Cell cell) {
-    TriangleMesh mesh = new ObjReader().read("Models/hexagon.obj");
+    TriangleMesh mesh = new ObjReader().read("models/hexagon.obj");
     Vector3f cellCenter = to3D(cell.getCenter());
 
     // TODO: Create jmonkey triangle mesh, set texture and normal map texture,
@@ -158,9 +162,34 @@ public class A4Scene extends Scene3D {
     Vector2f orientation = dir.getOrientation();
     Vector2f wallCenter = cell.getCenter().add(orientation.mult(
             Cell.getZellenhoehe()));
-    TriangleMesh mesh = new ObjReader().read("Models/hex_wall.obj");
+    TriangleMesh mesh = new ObjReader().read("models/hex_wall.obj");
 
     // TODO: Create jmonkey triangle mesh, set texture and normal map texture,
     // move to wall center, rotate wall, add to root node
+  }
+
+  /**
+   * Lighting can be customized here
+   */
+  @Override
+  public void setupLights(Node rootNode, ViewPort viewPort) {
+    // Sun
+    DirectionalLight sun = new DirectionalLight();
+    sun.setColor(new ColorRGBA(1, 1, 1, 1));
+    sun.setDirection(new Vector3f(0.25f, -1, 0.1f));
+    rootNode.addLight(sun);
+
+    // Point light source in the center of the scene.
+    PointLight light = new PointLight();
+    light.setPosition(new Vector3f(0,1,0));
+    light.setRadius(0);
+    light.setColor(ColorRGBA.White.mult(2));
+    rootNode.addLight(light);
+
+    // Some light everywhere
+    AmbientLight ambientLight = new AmbientLight();
+    ColorRGBA brightAmbientColor = ColorRGBA.White;
+    ambientLight.setColor(brightAmbientColor);
+    rootNode.addLight(ambientLight);
   }
 }

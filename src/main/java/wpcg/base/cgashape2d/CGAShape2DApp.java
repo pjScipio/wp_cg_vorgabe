@@ -24,7 +24,7 @@ public class CGAShape2DApp extends GenericCGApplication {
     } catch (GrammarException e) {
       Logger.getInstance().error("Grammar error: " + e.getMessage());
     }
-    GrammarEditor<Shape2D> grammarEditor = new GrammarEditor<Shape2D>(params, "cgashape2d");
+    var grammarEditor = new GrammarEditor<Shape2D>(params, "cgashape2d");
     CGAShape2DTreeViewer shapeTreeViewer = new CGAShape2DTreeViewer(params);
     CGAShape2DViewer viewer = new CGAShape2DViewer(600, 600, params);
 

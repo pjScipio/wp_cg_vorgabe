@@ -6,6 +6,8 @@
 package wpcg.lab.a5;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
@@ -246,15 +248,6 @@ public class A5Scene extends Scene3D {
   }
 
   @Override
-  public void setupLights(Node rootNode, ViewPort viewPort) {
-    // Scene
-    PointLight light1 = new PointLight(new Vector3f(10, 10, 10));
-    light1.setColor(new ColorRGBA(1f, 1f, 1f, 1));
-    light1.setRadius(40);
-    rootNode.addLight(light1);
-  }
-
-  @Override
   public String getTitle() {
     return "KD Tree";
   }
@@ -301,5 +294,30 @@ public class A5Scene extends Scene3D {
     buttonNumPoints.addActionListener(e -> createPointScene(Integer.parseInt(textFieldNumPoints.getText())));
     mainPanel.add(buttonNumPoints);
     return mainPanel;
+  }
+
+  /**
+   * Lighting can be customized here
+   */
+  @Override
+  public void setupLights(Node rootNode, ViewPort viewPort) {
+    // Sun
+    DirectionalLight sun = new DirectionalLight();
+    sun.setColor(new ColorRGBA(1, 1, 1, 1));
+    sun.setDirection(new Vector3f(0.25f, -1, 0.1f));
+    rootNode.addLight(sun);
+
+    // Point light source in the center of the scene.
+    PointLight light = new PointLight();
+    light.setPosition(new Vector3f(0,1,0));
+    light.setRadius(0);
+    light.setColor(ColorRGBA.White.mult(2));
+    rootNode.addLight(light);
+
+    // Some light everywhere
+    AmbientLight ambientLight = new AmbientLight();
+    ColorRGBA brightAmbientColor = ColorRGBA.White;
+    ambientLight.setColor(brightAmbientColor);
+    rootNode.addLight(ambientLight);
   }
 }

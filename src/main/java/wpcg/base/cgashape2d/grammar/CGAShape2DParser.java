@@ -85,7 +85,7 @@ public class CGAShape2DParser implements GrammarParser<Shape2D> {
         return;
       }
     }
-    Logger.getInstance().error("Failed to generate rule for " + line);
+    throw new GrammarException("Failed to parse " + line);
   }
 
   /**

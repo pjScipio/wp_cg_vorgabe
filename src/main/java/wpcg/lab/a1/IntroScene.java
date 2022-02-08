@@ -6,9 +6,13 @@
 package wpcg.lab.a1;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
+import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -93,7 +97,7 @@ public class IntroScene extends Scene3D {
   protected void addKnight() {
     runLater(() -> {
       Node knightNode = loadCharacter(assetManager, rootNode,
-              "Models/knight.gltf");
+              "models/knight.gltf");
       knightNode.setLocalScale(0.01f);
       AnimationControllerPath knightAnimationController =
               new AnimationControllerPath(Arrays.asList(
@@ -140,5 +144,30 @@ public class IntroScene extends Scene3D {
     buttonAddKnight.addActionListener(e -> addKnight());
     introUi.add(buttonAddKnight);
     return introUi;
+  }
+
+  /**
+   * Lighting can be customized here
+   */
+  @Override
+  public void setupLights(Node rootNode, ViewPort viewPort) {
+    // Sun
+    DirectionalLight sun = new DirectionalLight();
+    sun.setColor(new ColorRGBA(1, 1, 1, 1));
+    sun.setDirection(new Vector3f(0.25f, -1, 0.1f));
+    rootNode.addLight(sun);
+
+    // Point light source in the center of the scene.
+    PointLight light = new PointLight();
+    light.setPosition(new Vector3f(0,1,0));
+    light.setRadius(0);
+    light.setColor(ColorRGBA.White.mult(2));
+    rootNode.addLight(light);
+
+    // Some light everywhere
+    AmbientLight ambientLight = new AmbientLight();
+    ColorRGBA brightAmbientColor = ColorRGBA.White;
+    ambientLight.setColor(brightAmbientColor);
+    rootNode.addLight(ambientLight);
   }
 }

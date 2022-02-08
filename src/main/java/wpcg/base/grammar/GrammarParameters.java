@@ -58,7 +58,7 @@ public class GrammarParameters<T> extends Parameters {
       notifyAllObservers();
       System.out.println("Successfully read grammar from " + grammarFilename);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new GrammarException("Failed to read grammar from " + grammarFilename);
     }
   }
 
