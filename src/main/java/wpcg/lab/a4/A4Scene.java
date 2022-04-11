@@ -8,6 +8,7 @@ package wpcg.lab.a4;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
+import com.jme3.light.Light;
 import com.jme3.light.PointLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
@@ -173,17 +174,19 @@ public class A4Scene extends Scene3D {
    */
   @Override
   public void setupLights(Node rootNode, ViewPort viewPort) {
-    // Sun
-    DirectionalLight sun = new DirectionalLight();
-    sun.setColor(new ColorRGBA(1, 1, 1, 1));
-    sun.setDirection(new Vector3f(0.25f, -1, 0.1f));
-    rootNode.addLight(sun);
+    // Clear lights
+    for ( Light light : rootNode.getLocalLightList()){
+      rootNode.removeLight(light);
+    }
+    for ( Light light : rootNode.getWorldLightList()){
+      rootNode.removeLight(light);
+    }
 
     // Point light source in the center of the scene.
     PointLight light = new PointLight();
     light.setPosition(new Vector3f(0,1,0));
     light.setRadius(0);
-    light.setColor(ColorRGBA.White.mult(2));
+    light.setColor(ColorRGBA.Yellow.mult(2));
     rootNode.addLight(light);
 
     // Some light everywhere
