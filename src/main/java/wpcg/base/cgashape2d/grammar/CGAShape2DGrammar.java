@@ -28,7 +28,7 @@ public class CGAShape2DGrammar extends Grammar<Shape2D> {
   private Shape2D axiom = new Point2D(new Symbol("Origin"), new Scope2D());
 
   @Override
-  public List<Shape2D> derive() throws GrammarException {
+  public List<Shape2D> derive(Symbol symbol) throws GrammarException {
     axiom.clearChildren();
     derive(axiom);
     return Arrays.asList(axiom);

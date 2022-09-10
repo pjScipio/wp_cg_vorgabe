@@ -24,7 +24,7 @@ public abstract class Grammar<T> extends Observable {
   /**
    * Derive the axiom, return a list of resulting symbols.
    */
-  public abstract List<T> derive() throws GrammarException;
+  public abstract List<T> derive(Symbol symbol) throws GrammarException;
 
   public void clearRules() {
     rules.clear();

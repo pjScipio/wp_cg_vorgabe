@@ -68,7 +68,7 @@ public class GrammarParameters<T> extends Parameters {
   public void readGrammarFromString(String grammarText) throws GrammarException {
     parser.parse(grammar, grammarText);
     // Initial derivation
-    var result = grammar.derive();
+    var result = grammar.derive(null);
     notifyAllObservers();
   }
 

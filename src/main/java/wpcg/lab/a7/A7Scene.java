@@ -59,20 +59,13 @@ public class A7Scene extends Scene3D {
   public void setupLights(Node rootNode, ViewPort viewPort) {
     // Sun
     DirectionalLight sun = new DirectionalLight();
-    sun.setColor(new ColorRGBA(1, 1, 1, 1));
+    sun.setColor(new ColorRGBA(0.5f, 0.5f, 0.5f, 1));
     sun.setDirection(new Vector3f(0.25f, -1, 0.1f));
     rootNode.addLight(sun);
 
-    // Point light source in the center of the scene.
-    PointLight light = new PointLight();
-    light.setPosition(new Vector3f(0,1,0));
-    light.setRadius(0);
-    light.setColor(ColorRGBA.White.mult(2));
-    rootNode.addLight(light);
-
     // Some light everywhere
     AmbientLight ambientLight = new AmbientLight();
-    ColorRGBA brightAmbientColor = ColorRGBA.White;
+    ColorRGBA brightAmbientColor = new ColorRGBA(0.1f, 0.1f, 0.1f, 1);
     ambientLight.setColor(brightAmbientColor);
     rootNode.addLight(ambientLight);
   }

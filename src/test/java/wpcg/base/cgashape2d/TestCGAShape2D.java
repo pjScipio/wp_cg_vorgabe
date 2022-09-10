@@ -3,6 +3,7 @@ package wpcg.base.cgashape2d;
 import org.junit.jupiter.api.Test;
 import wpcg.base.cgashape2d.shapes.Shape2D;
 import wpcg.base.grammar.GrammarException;
+import wpcg.base.grammar.Symbol;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class TestCGAShape2D {
     }
     List<Shape2D> word = null;
     try {
-      word = params.getGrammar().derive();
+      word = params.getGrammar().derive(new Symbol("Origin"));
     } catch (GrammarException e) {
       assertTrue(false);
     }

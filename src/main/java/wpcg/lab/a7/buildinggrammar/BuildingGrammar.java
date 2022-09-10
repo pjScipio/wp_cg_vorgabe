@@ -55,7 +55,7 @@ public class BuildingGrammar extends Grammar<Symbol> {
 
 
   @Override
-  public List<Symbol> derive() throws GrammarException {
+  public List<Symbol> derive(Symbol symbol) throws GrammarException {
     return null;
   }
 }

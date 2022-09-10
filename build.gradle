@@ -24,7 +24,7 @@ sourceSets {
     }
 }
 
-def jme3 = [v: '3.4.0-stable', g: 'org.jmonkeyengine']
+def jme3 = [v: '3.5.2-stable', g: 'org.jmonkeyengine']
 
 dependencies {
 
@@ -33,7 +33,8 @@ dependencies {
     implementation "${jme3.g}:jme3-effects:${jme3.v}"
     implementation "${jme3.g}:jme3-plugins:${jme3.v}"
     implementation "${jme3.g}:jme3-desktop:${jme3.v}"
-    implementation "${jme3.g}:jme3-lwjgl:${jme3.v}"
+    implementation "${jme3.g}:jme3-lwjgl3:${jme3.v}"
+    implementation "${jme3.g}:jme3-jogg:${jme3.v}"
 
     // Utils
     implementation 'org.apache.commons:commons-lang3:3.12.0'
@@ -42,7 +43,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 
     // Unit-Testing
-    testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.9.0')
 }
 
 test {
