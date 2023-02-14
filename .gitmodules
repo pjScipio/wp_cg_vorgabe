@@ -1,6 +1,6 @@
 [submodule "cg_math"]
 	path = cg_math
-	url = ../../abo781/cg_math.git
+	url = ../cg_math.git
 [submodule "cg_ui"]
 	path = cg_ui
-	url = ../../abo781/cg_ui
+	url = ../cg_ui
